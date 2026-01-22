@@ -1,5 +1,5 @@
 schemas:
-  KeypadDevice:
+  KeypadVisionDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,32 +7,46 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
-            example: "Keypad"
+              - Keypad Vision
+            example: "Keypad Vision"
 
-  KeypadStatus:
+  KeypadVisionProDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Keypad Vision Pro
+            example: "Keypad Vision Pro"
+
+  KeypadVisionStatus:
     type: object
+    description: Keypad Vision device status
     required:
       - deviceId
       - deviceType
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Keypad
-          - Keypad Touch
+          - Keypad Vision
+          - Keypad Vision Pro
+        example: "Keypad Vision"
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
-        description: Battery level percentage
+        example: 90
 
-  KeypadWebhookEvent:
+  KeypadVisionWebhookEvent:
     type: object
-    description: Keypad webhook event payload (battery status changes)
+    description: Keypad Vision webhook event payload (battery status changes)
     required:
       - eventType
       - eventVersion
@@ -56,8 +70,8 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
+              - Keypad Vision
+              - Keypad Vision Pro
           deviceMac:
             type: string
             description: Device MAC address

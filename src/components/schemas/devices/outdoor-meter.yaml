@@ -1,5 +1,5 @@
 schemas:
-  KeypadDevice:
+  OutdoorMeterDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,32 +7,46 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
-            example: "Keypad"
+              - Outdoor Meter
+            example: "Outdoor Meter"
 
-  KeypadStatus:
+  OutdoorMeterStatus:
     type: object
+    description: Outdoor Meter device status
     required:
       - deviceId
       - deviceType
+      - temperature
+      - humidity
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Keypad
-          - Keypad Touch
-      battery:
+          - Outdoor Meter
+        example: "Outdoor Meter"
+      temperature:
+        type: number
+        description: Temperature in Celsius
+        example: 25.5
+      humidity:
         type: integer
+        description: Relative humidity percentage
         minimum: 0
         maximum: 100
+        example: 65
+      battery:
+        type: integer
         description: Battery level percentage
+        minimum: 0
+        maximum: 100
+        example: 80
 
-  KeypadWebhookEvent:
+  OutdoorMeterWebhookEvent:
     type: object
-    description: Keypad webhook event payload (battery status changes)
+    description: Outdoor Meter webhook event payload
     required:
       - eventType
       - eventVersion
@@ -51,17 +65,25 @@ schemas:
         required:
           - deviceType
           - deviceMac
+          - temperature
+          - humidity
           - timeOfSample
         properties:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
+              - Outdoor Meter
           deviceMac:
             type: string
             description: Device MAC address
             example: "A1B2C3D4E5F6"
+          temperature:
+            type: number
+            description: Temperature in Celsius
+          humidity:
+            type: integer
+            minimum: 0
+            maximum: 100
           battery:
             type: integer
             minimum: 0

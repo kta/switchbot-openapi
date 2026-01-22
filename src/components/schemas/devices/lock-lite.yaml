@@ -1,5 +1,5 @@
 schemas:
-  LockProDevice:
+  LockLiteDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,65 +7,72 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
-            example: "Smart Lock Pro"
+              - Smart Lock Lite
+            example: "Smart Lock Lite"
 
-  LockProStatus:
+  LockLiteStatus:
     type: object
+    description: Smart Lock Lite device status
     required:
       - deviceId
       - deviceType
       - lockState
-      - doorState
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Smart Lock Pro
+          - Smart Lock Lite
+        example: "Smart Lock Lite"
       lockState:
         type: string
+        description: Current lock state
         enum:
           - locked
           - unlocked
           - jammed
-      doorState:
-        type: string
-        enum:
-          - closed
-          - opened
-          - unknown
-      calibrate:
-        type: boolean
+        example: "locked"
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
+        example: 85
 
-  LockProCommand:
+  LockLiteCommand:
     type: object
+    description: Smart Lock Lite device command
     required:
       - commandType
       - command
     properties:
       commandType:
         type: string
+        description: Command type
         enum:
           - command
+        example: "command"
       command:
         type: string
+        description: |
+          Command to execute:
+          - lock: Lock the door
+          - unlock: Unlock the door
         enum:
           - lock
           - unlock
+        example: "lock"
       parameter:
         type: string
         enum:
           - default
+        example: "default"
 
-  LockProWebhookEvent:
+  LockLiteWebhookEvent:
     type: object
-    description: Smart Lock Pro webhook event payload
+    description: Smart Lock Lite webhook event payload
     required:
       - eventType
       - eventVersion
@@ -85,13 +92,12 @@ schemas:
           - deviceType
           - deviceMac
           - lockState
-          - doorState
           - timeOfSample
         properties:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
+              - Smart Lock Lite
           deviceMac:
             type: string
             description: Device MAC address
@@ -102,14 +108,6 @@ schemas:
               - locked
               - unlocked
               - jammed
-          doorState:
-            type: string
-            enum:
-              - closed
-              - opened
-              - unknown
-          calibrate:
-            type: boolean
           battery:
             type: integer
             minimum: 0

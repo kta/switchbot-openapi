@@ -35,8 +35,11 @@ async function fetchReadme(url) {
  * Extract a section from markdown by header name
  */
 function extractSection(markdown, headerName) {
-  // Match the header (## or ###) and capture content until next header of same or higher level
-  const headerRegex = new RegExp(`^(#{2,3})\\s+${headerName}\\s*$`, 'mi');
+  // Escape special regex characters in headerName
+  const escapedHeaderName = headerName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  // Match the header (## to ####) and capture content until next header of same or higher level
+  const headerRegex = new RegExp(`^(#{2,4})\\s+${escapedHeaderName}\\s*$`, 'mi');
   const match = markdown.match(headerRegex);
 
   if (!match) {

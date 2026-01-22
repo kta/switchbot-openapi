@@ -1,0 +1,181 @@
+schemas:
+  BatteryCirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Battery Circulator Fan
+            example: "Battery Circulator Fan"
+
+  CirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Circulator Fan
+            example: "Circulator Fan"
+
+  StandingCirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Standing Circulator Fan
+            example: "Standing Circulator Fan"
+
+  CirculatorFanStatus:
+    type: object
+    description: Circulator Fan device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Battery Circulator Fan
+          - Circulator Fan
+          - Standing Circulator Fan
+        example: "Circulator Fan"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      fanSpeed:
+        type: integer
+        description: Fan speed level (1-4)
+        minimum: 1
+        maximum: 4
+        example: 2
+      mode:
+        type: string
+        description: Operation mode
+        enum:
+          - standard
+          - natural
+        example: "standard"
+      shaking:
+        type: boolean
+        description: Oscillation status
+        example: true
+      shakeRange:
+        type: integer
+        description: Oscillation range (degrees)
+        example: 60
+      battery:
+        type: integer
+        description: Battery level percentage (battery models only)
+        minimum: 0
+        maximum: 100
+        example: 85
+
+  CirculatorFanCommand:
+    type: object
+    description: Circulator Fan device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the fan
+          - turnOff: Turn off the fan
+          - setFanSpeed: Set fan speed (1-4)
+          - setMode: Set operation mode (standard/natural)
+          - setShaking: Enable/disable oscillation
+        enum:
+          - turnOn
+          - turnOff
+          - setFanSpeed
+          - setMode
+          - setShaking
+        example: "setFanSpeed"
+      parameter:
+        type: string
+        description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+        example: "2"
+
+  CirculatorFanWebhookEvent:
+    type: object
+    description: Circulator Fan webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Battery Circulator Fan
+              - Circulator Fan
+              - Standing Circulator Fan
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          fanSpeed:
+            type: integer
+            minimum: 1
+            maximum: 4
+          mode:
+            type: string
+            enum:
+              - standard
+              - natural
+          shaking:
+            type: boolean
+          shakeRange:
+            type: integer
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

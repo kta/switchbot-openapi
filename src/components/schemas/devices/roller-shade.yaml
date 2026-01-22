@@ -52,3 +52,51 @@ schemas:
           - setPosition
       parameter:
         type: string
+        description: For setPosition, use "0,ff,<position>" format
+
+  RollerShadeWebhookEvent:
+    type: object
+    description: Roller Shade webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - slidePosition
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Roller Shade
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          slidePosition:
+            type: integer
+            minimum: 0
+            maximum: 100
+          moving:
+            type: boolean
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

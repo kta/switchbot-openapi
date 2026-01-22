@@ -1,5 +1,5 @@
 schemas:
-  KeypadDevice:
+  WaterLeakDetectorDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,32 +7,39 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
-            example: "Keypad"
+              - Water Leak Detector
+            example: "Water Leak Detector"
 
-  KeypadStatus:
+  WaterLeakDetectorStatus:
     type: object
+    description: Water Leak Detector device status
     required:
       - deviceId
       - deviceType
+      - leakDetected
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Keypad
-          - Keypad Touch
+          - Water Leak Detector
+        example: "Water Leak Detector"
+      leakDetected:
+        type: boolean
+        description: Whether water leak is currently detected
+        example: false
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
-        description: Battery level percentage
+        example: 85
 
-  KeypadWebhookEvent:
+  WaterLeakDetectorWebhookEvent:
     type: object
-    description: Keypad webhook event payload (battery status changes)
+    description: Water Leak Detector webhook event payload
     required:
       - eventType
       - eventVersion
@@ -51,17 +58,19 @@ schemas:
         required:
           - deviceType
           - deviceMac
+          - leakDetected
           - timeOfSample
         properties:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
+              - Water Leak Detector
           deviceMac:
             type: string
             description: Device MAC address
             example: "A1B2C3D4E5F6"
+          leakDetected:
+            type: boolean
           battery:
             type: integer
             minimum: 0

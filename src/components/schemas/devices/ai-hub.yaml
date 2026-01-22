@@ -1,0 +1,51 @@
+schemas:
+  AIHubDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - AI Hub
+            example: "AI Hub"
+
+  AIHubStatus:
+    type: object
+    description: AI Hub device status
+    required:
+      - deviceId
+      - deviceType
+      - temperature
+      - humidity
+      - lightLevel
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - AI Hub
+        example: "AI Hub"
+      temperature:
+        type: number
+        description: Temperature in Celsius
+        example: 24.0
+      humidity:
+        type: integer
+        description: Relative humidity percentage
+        minimum: 0
+        maximum: 100
+        example: 60
+      lightLevel:
+        type: integer
+        description: Light level (1-bright, 2-dim)
+        enum:
+          - 1
+          - 2
+        example: 1
+      version:
+        type: integer
+        description: Firmware version
+        example: 50

@@ -1,0 +1,105 @@
+schemas:
+  IndoorCamDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Indoor Cam
+            example: "Indoor Cam"
+
+  PanTiltCamDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Pan/Tilt Cam
+            example: "Pan/Tilt Cam"
+
+  PanTiltCam2KDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Pan/Tilt Cam 2K
+            example: "Pan/Tilt Cam 2K"
+
+  PanTiltCamPlus2KDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Pan/Tilt Cam Plus 2K
+            example: "Pan/Tilt Cam Plus 2K"
+
+  PanTiltCamPlus3KDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Pan/Tilt Cam Plus 3K
+            example: "Pan/Tilt Cam Plus 3K"
+
+  VideoDoorbellDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Video Doorbell
+            example: "Video Doorbell"
+
+  CameraStatus:
+    type: object
+    description: Camera device status (cameras typically don't provide detailed status via API)
+    required:
+      - deviceId
+      - deviceType
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Indoor Cam
+          - Pan/Tilt Cam
+          - Pan/Tilt Cam 2K
+          - Pan/Tilt Cam Plus 2K
+          - Pan/Tilt Cam Plus 3K
+          - Video Doorbell
+        example: "Indoor Cam"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      recordingStatus:
+        type: string
+        description: Recording status
+        enum:
+          - recording
+          - stopped
+        example: "recording"
+      motionDetected:
+        type: boolean
+        description: Whether motion is currently detected
+        example: false

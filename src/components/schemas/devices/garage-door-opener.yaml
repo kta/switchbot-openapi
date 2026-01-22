@@ -1,5 +1,5 @@
 schemas:
-  LockProDevice:
+  GarageDoorOpenerDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,65 +7,76 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
-            example: "Smart Lock Pro"
+              - Garage Door Opener
+            example: "Garage Door Opener"
 
-  LockProStatus:
+  GarageDoorOpenerStatus:
     type: object
+    description: Garage Door Opener device status
     required:
       - deviceId
       - deviceType
-      - lockState
       - doorState
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Smart Lock Pro
-      lockState:
-        type: string
-        enum:
-          - locked
-          - unlocked
-          - jammed
+          - Garage Door Opener
+        example: "Garage Door Opener"
       doorState:
         type: string
+        description: Current door state
         enum:
           - closed
           - opened
-          - unknown
+          - closing
+          - opening
+        example: "closed"
       calibrate:
         type: boolean
+        description: Whether calibration is needed
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
+        example: 95
 
-  LockProCommand:
+  GarageDoorOpenerCommand:
     type: object
+    description: Garage Door Opener device command
     required:
       - commandType
       - command
     properties:
       commandType:
         type: string
+        description: Command type
         enum:
           - command
+        example: "command"
       command:
         type: string
+        description: |
+          Command to execute:
+          - open: Open the garage door
+          - close: Close the garage door
         enum:
-          - lock
-          - unlock
+          - open
+          - close
+        example: "open"
       parameter:
         type: string
         enum:
           - default
+        example: "default"
 
-  LockProWebhookEvent:
+  GarageDoorOpenerWebhookEvent:
     type: object
-    description: Smart Lock Pro webhook event payload
+    description: Garage Door Opener webhook event payload
     required:
       - eventType
       - eventVersion
@@ -84,30 +95,24 @@ schemas:
         required:
           - deviceType
           - deviceMac
-          - lockState
           - doorState
           - timeOfSample
         properties:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
+              - Garage Door Opener
           deviceMac:
             type: string
             description: Device MAC address
             example: "A1B2C3D4E5F6"
-          lockState:
-            type: string
-            enum:
-              - locked
-              - unlocked
-              - jammed
           doorState:
             type: string
             enum:
               - closed
               - opened
-              - unknown
+              - closing
+              - opening
           calibrate:
             type: boolean
           battery:

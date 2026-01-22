@@ -62,3 +62,56 @@ schemas:
         type: string
         enum:
           - default
+
+  RelaySwitchWebhookEvent:
+    type: object
+    description: Relay Switch webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Relay Switch 1
+              - Relay Switch 1PM
+              - Relay Switch 2PM
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          voltage:
+            type: number
+            description: Current voltage (PM models only)
+          weight:
+            type: number
+            description: Power consumption in W (PM models only)
+          electricCurrent:
+            type: number
+            description: Current in A (PM models only)
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

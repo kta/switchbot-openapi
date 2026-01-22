@@ -1,23 +1,27 @@
 # SwitchBot OpenAPI Specification
 
-![Validate](https://github.com/YOUR_USERNAME/switchbot-openapi/workflows/Validate%20OpenAPI/badge.svg)
+<!-- Replace YOUR_USERNAME with your GitHub username to enable badge -->
+<!-- ![Validate](https://github.com/YOUR_USERNAME/switchbot-openapi/workflows/Validate%20OpenAPI/badge.svg) -->
 
 Auto-updating OpenAPI 3.1.0 specification for the [SwitchBot API](https://github.com/OpenWonderLabs/SwitchBotAPI).
 
 ## Overview
 
-This project maintains an OpenAPI specification that automatically syncs with the official SwitchBot API documentation. When the official README is updated, this repository detects changes and uses GitHub Copilot to generate updated OpenAPI schemas.
+This project maintains a comprehensive OpenAPI specification that automatically syncs with the official SwitchBot API documentation. When the official README is updated, this repository detects changes and uses GitHub Copilot to generate updated OpenAPI schemas.
+
+**Status: ✅ Complete** - All 63 device types have been fully defined with comprehensive OpenAPI schemas.
 
 ## Features
 
 - **OpenAPI 3.1.0** compliant specification
 - **AI-powered automation** using GitHub Copilot (GPT-4o)
 - **Automatic synchronization** with upstream SwitchBot API documentation
-- **70+ device types** supported
-- **Modular structure** with separate schema files per device type
+- **63 device types** fully supported across 28 schema files
+- **Modular structure** with separate schema files per device category
 - **GitHub Actions** for automated updates and validation
 - **Ready for code generation** - use with any OpenAPI client generator
 - **Free to run** - no API keys or billing required
+- **Complete coverage** - all device Status, Commands, and Webhook events defined
 
 ## Quick Start
 
@@ -58,6 +62,22 @@ npx @openapitools/openapi-generator-cli generate \
   -o ./generated/python
 ```
 
+## Supported Devices
+
+All 63 SwitchBot device types are fully supported:
+
+- **Switch/Plug** (4): Bot, Plug, Plug Mini (US/JP/EU), Relay Switch (1/1PM/2PM)
+- **Curtain/Blind** (4): Curtain, Curtain 3, Blind Tilt, Roller Shade
+- **Lock** (6): Smart Lock, Lock Pro, Lock Ultra, Lock Lite, Keypad, Keypad Touch, Keypad Vision, Keypad Vision Pro
+- **Sensor** (8): Meter, Meter Plus, Meter Pro, Meter Pro CO2, Outdoor Meter, Motion Sensor, Contact Sensor, Presence Sensor, Water Leak Detector
+- **Light** (11): Color Bulb, Strip Light, Strip Light 3, Ceiling Light, Ceiling Light Pro, Floor Lamp, RGBICWW Strip/Floor Lamp, RGBIC Neon Wire/Rope Light, Candle Warmer Lamp
+- **Hub** (5): Hub Mini, Hub Plus, Hub 2, Hub 3, AI Hub
+- **Robot Vacuum** (9): S1/S1 Plus, K10+/Pro/Pro Combo, K11+, K20+ Pro, Floor Cleaning S10/S20
+- **Climate** (7): Humidifier, Evaporative Humidifier, Air Purifier VOC/PM2.5, Smart Radiator Thermostat
+- **Fan** (3): Battery Circulator Fan, Circulator Fan, Standing Circulator Fan
+- **Camera** (6): Indoor Cam, Pan/Tilt Cam variants, Video Doorbell
+- **Other** (4): Remote, Garage Door Opener, Home Climate Panel, AI Art Frame, Virtual IR Remote
+
 ## Project Structure
 
 ```
@@ -70,11 +90,13 @@ npx @openapitools/openapi-generator-cli generate \
 │   │   ├── responses.yaml           # Common response schemas
 │   │   └── schemas/
 │   │       ├── common.yaml          # Base schemas
-│   │       └── devices/             # Device-specific schemas
+│   │       └── devices/             # 28 device schema files
 │   │           ├── bot.yaml
 │   │           ├── curtain.yaml
 │   │           ├── lock.yaml
-│   │           └── ...
+│   │           ├── camera.yaml
+│   │           ├── robot-vacuum.yaml
+│   │           └── ... (23 more)
 │   └── paths/
 │       ├── devices.yaml             # GET /devices
 │       ├── devices-status.yaml      # GET /devices/{id}/status
@@ -82,10 +104,10 @@ npx @openapitools/openapi-generator-cli generate \
 │       ├── scenes.yaml              # Scene endpoints
 │       └── webhook.yaml             # Webhook endpoints
 ├── scripts/
-│   ├── devices-config.json          # Device type mappings
+│   ├── devices-config.json          # 63 device type mappings
 │   ├── extract-sections.js          # README change detection
 │   ├── update-device.js             # LLM-based schema generation
-│   ├── bundle.js                    # Bundle script
+│   ├── hash-store.json              # Change detection cache
 │   └── prompt-template.md           # LLM prompt template
 └── openapi.yaml                     # Generated bundled spec
 ```
@@ -172,10 +194,13 @@ Contributions are welcome! Please:
 
 ### Adding a New Device
 
+See [CLAUDE.md](./CLAUDE.md) for detailed instructions on adding new devices.
+
+Quick steps:
 1. Add device configuration to `scripts/devices-config.json`
 2. Create schema file in `src/components/schemas/devices/`
 3. Follow the four-component pattern: Device, Status, Command, WebhookEvent
-4. Run `npm run build` to test
+4. Run `npm run build` to validate
 
 ## License
 

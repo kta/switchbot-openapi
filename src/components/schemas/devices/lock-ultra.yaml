@@ -1,5 +1,5 @@
 schemas:
-  LockProDevice:
+  LockUltraDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,11 +7,12 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
-            example: "Smart Lock Pro"
+              - Smart Lock Ultra
+            example: "Smart Lock Ultra"
 
-  LockProStatus:
+  LockUltraStatus:
     type: object
+    description: Smart Lock Ultra device status
     required:
       - deviceId
       - deviceType
@@ -20,52 +21,70 @@ schemas:
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Smart Lock Pro
+          - Smart Lock Ultra
+        example: "Smart Lock Ultra"
       lockState:
         type: string
+        description: Current lock state
         enum:
           - locked
           - unlocked
           - jammed
+        example: "locked"
       doorState:
         type: string
+        description: Current door state
         enum:
           - closed
           - opened
           - unknown
+        example: "closed"
       calibrate:
         type: boolean
+        description: Whether lock needs calibration
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
+        example: 95
 
-  LockProCommand:
+  LockUltraCommand:
     type: object
+    description: Smart Lock Ultra device command
     required:
       - commandType
       - command
     properties:
       commandType:
         type: string
+        description: Command type
         enum:
           - command
+        example: "command"
       command:
         type: string
+        description: |
+          Command to execute:
+          - lock: Lock the door
+          - unlock: Unlock the door
         enum:
           - lock
           - unlock
+        example: "lock"
       parameter:
         type: string
         enum:
           - default
+        example: "default"
 
-  LockProWebhookEvent:
+  LockUltraWebhookEvent:
     type: object
-    description: Smart Lock Pro webhook event payload
+    description: Smart Lock Ultra webhook event payload
     required:
       - eventType
       - eventVersion
@@ -91,7 +110,7 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Smart Lock Pro
+              - Smart Lock Ultra
           deviceMac:
             type: string
             description: Device MAC address

@@ -1,0 +1,172 @@
+schemas:
+  EvaporativeHumidifierDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Evaporative Humidifier
+            example: "Evaporative Humidifier"
+
+  EvaporativeHumidifierAutoDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Evaporative Humidifier (Auto)
+            example: "Evaporative Humidifier (Auto)"
+
+  EvaporativeHumidifierStatus:
+    type: object
+    description: Evaporative Humidifier device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+      - humidity
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Evaporative Humidifier
+          - Evaporative Humidifier (Auto)
+        example: "Evaporative Humidifier"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      humidity:
+        type: integer
+        description: Current relative humidity percentage
+        minimum: 0
+        maximum: 100
+        example: 55
+      temperature:
+        type: number
+        description: Current temperature in Celsius
+        example: 22.5
+      nebulizationEfficiency:
+        type: integer
+        description: Nebulization efficiency percentage
+        minimum: 0
+        maximum: 100
+        example: 75
+      auto:
+        type: boolean
+        description: Auto mode status
+        example: true
+      childLock:
+        type: boolean
+        description: Child lock status
+        example: false
+      sound:
+        type: boolean
+        description: Sound enabled/disabled
+        example: true
+      lackWater:
+        type: boolean
+        description: Water shortage indicator
+        example: false
+
+  EvaporativeHumidifierCommand:
+    type: object
+    description: Evaporative Humidifier device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the humidifier
+          - turnOff: Turn off the humidifier
+          - setMode: Set operation mode
+        enum:
+          - turnOn
+          - turnOff
+          - setMode
+        example: "setMode"
+      parameter:
+        type: string
+        description: For setMode (auto/101/102/103), for turnOn/turnOff use "default"
+        example: "auto"
+
+  EvaporativeHumidifierWebhookEvent:
+    type: object
+    description: Evaporative Humidifier webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - humidity
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Evaporative Humidifier
+              - Evaporative Humidifier (Auto)
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          humidity:
+            type: integer
+            minimum: 0
+            maximum: 100
+          temperature:
+            type: number
+          nebulizationEfficiency:
+            type: integer
+            minimum: 0
+            maximum: 100
+          auto:
+            type: boolean
+          childLock:
+            type: boolean
+          sound:
+            type: boolean
+          lackWater:
+            type: boolean
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

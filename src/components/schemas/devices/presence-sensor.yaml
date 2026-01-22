@@ -1,5 +1,5 @@
 schemas:
-  KeypadDevice:
+  PresenceSensorDevice:
     allOf:
       - $ref: '../common.yaml#/schemas/DeviceBase'
       - type: object
@@ -7,32 +7,39 @@ schemas:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
-            example: "Keypad"
+              - Presence Sensor
+            example: "Presence Sensor"
 
-  KeypadStatus:
+  PresenceSensorStatus:
     type: object
+    description: Presence Sensor device status
     required:
       - deviceId
       - deviceType
+      - presenceDetected
     properties:
       deviceId:
         type: string
+        example: "A1B2C3D4E5F6"
       deviceType:
         type: string
         enum:
-          - Keypad
-          - Keypad Touch
+          - Presence Sensor
+        example: "Presence Sensor"
+      presenceDetected:
+        type: boolean
+        description: Whether presence is currently detected
+        example: true
       battery:
         type: integer
+        description: Battery level percentage
         minimum: 0
         maximum: 100
-        description: Battery level percentage
+        example: 90
 
-  KeypadWebhookEvent:
+  PresenceSensorWebhookEvent:
     type: object
-    description: Keypad webhook event payload (battery status changes)
+    description: Presence Sensor webhook event payload
     required:
       - eventType
       - eventVersion
@@ -51,17 +58,19 @@ schemas:
         required:
           - deviceType
           - deviceMac
+          - presenceDetected
           - timeOfSample
         properties:
           deviceType:
             type: string
             enum:
-              - Keypad
-              - Keypad Touch
+              - Presence Sensor
           deviceMac:
             type: string
             description: Device MAC address
             example: "A1B2C3D4E5F6"
+          presenceDetected:
+            type: boolean
           battery:
             type: integer
             minimum: 0

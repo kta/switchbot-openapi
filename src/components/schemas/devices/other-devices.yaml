@@ -1,0 +1,125 @@
+schemas:
+  HomeClimatePanelDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Home Climate Panel
+            example: "Home Climate Panel"
+
+  HomeClimatePanelStatus:
+    type: object
+    description: Home Climate Panel device status
+    required:
+      - deviceId
+      - deviceType
+      - temperature
+      - humidity
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Home Climate Panel
+        example: "Home Climate Panel"
+      temperature:
+        type: number
+        description: Current temperature in Celsius
+        example: 22.0
+      humidity:
+        type: integer
+        description: Relative humidity percentage
+        minimum: 0
+        maximum: 100
+        example: 50
+      mode:
+        type: string
+        description: Operation mode
+        example: "auto"
+      power:
+        type: string
+        enum:
+          - "on"
+          - "off"
+
+  AIArtFrameDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - AI Art Frame
+            example: "AI Art Frame"
+
+  AIArtFrameStatus:
+    type: object
+    description: AI Art Frame device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - AI Art Frame
+        example: "AI Art Frame"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      brightness:
+        type: integer
+        description: Screen brightness (0-100)
+        minimum: 0
+        maximum: 100
+        example: 75
+      currentArt:
+        type: string
+        description: Currently displayed artwork ID
+
+  VirtualIRRemoteDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Virtual IR Remote
+            example: "Virtual IR Remote"
+
+  VirtualIRRemoteStatus:
+    type: object
+    description: Virtual IR Remote device status (IR learning device)
+    required:
+      - deviceId
+      - deviceType
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Virtual IR Remote
+        example: "Virtual IR Remote"
+      battery:
+        type: integer
+        description: Battery level percentage
+        minimum: 0
+        maximum: 100
+        example: 90

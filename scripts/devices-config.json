@@ -161,6 +161,447 @@
       "hasStatus": true,
       "hasCommands": true,
       "hasWebhook": true
+    },
+    {
+      "deviceType": "Plug Mini (US)",
+      "displayName": "Plug Mini (US)",
+      "yamlFile": "src/components/schemas/devices/plug-mini.yaml",
+      "readmeHeaders": ["Plug Mini (US)"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Plug Mini (JP)",
+      "displayName": "Plug Mini (JP)",
+      "yamlFile": "src/components/schemas/devices/plug-mini.yaml",
+      "readmeHeaders": ["Plug Mini (JP)"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Plug Mini (EU)",
+      "displayName": "Plug Mini (EU)",
+      "yamlFile": "src/components/schemas/devices/plug-mini.yaml",
+      "readmeHeaders": ["Plug Mini (EU)"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Relay Switch 1",
+      "displayName": "Relay Switch 1",
+      "yamlFile": "src/components/schemas/devices/relay-switch.yaml",
+      "readmeHeaders": ["Relay Switch 1"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Relay Switch 1PM",
+      "displayName": "Relay Switch 1PM",
+      "yamlFile": "src/components/schemas/devices/relay-switch.yaml",
+      "readmeHeaders": ["Relay Switch 1PM"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Relay Switch 2PM",
+      "displayName": "Relay Switch 2PM",
+      "yamlFile": "src/components/schemas/devices/relay-switch.yaml",
+      "readmeHeaders": ["Relay Switch 2PM"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Blind Tilt",
+      "displayName": "Blind Tilt",
+      "yamlFile": "src/components/schemas/devices/blind-tilt.yaml",
+      "readmeHeaders": ["Blind Tilt"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Roller Shade",
+      "displayName": "Roller Shade",
+      "yamlFile": "src/components/schemas/devices/roller-shade.yaml",
+      "readmeHeaders": ["Roller Shade"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Smart Lock Pro",
+      "displayName": "Smart Lock Pro",
+      "yamlFile": "src/components/schemas/devices/lock-pro.yaml",
+      "readmeHeaders": ["Smart Lock Pro"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Keypad",
+      "displayName": "Keypad",
+      "yamlFile": "src/components/schemas/devices/keypad.yaml",
+      "readmeHeaders": ["Keypad"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Keypad Touch",
+      "displayName": "Keypad Touch",
+      "yamlFile": "src/components/schemas/devices/keypad.yaml",
+      "readmeHeaders": ["Keypad Touch"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Smart Lock Ultra",
+      "displayName": "Smart Lock Ultra",
+      "yamlFile": "src/components/schemas/devices/lock-ultra.yaml",
+      "readmeHeaders": ["Smart Lock Ultra"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Smart Lock Lite",
+      "displayName": "Smart Lock Lite",
+      "yamlFile": "src/components/schemas/devices/lock-lite.yaml",
+      "readmeHeaders": ["Smart Lock Lite"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Keypad Vision",
+      "displayName": "Keypad Vision",
+      "yamlFile": "src/components/schemas/devices/keypad-vision.yaml",
+      "readmeHeaders": ["Keypad Vision"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Keypad Vision Pro",
+      "displayName": "Keypad Vision Pro",
+      "yamlFile": "src/components/schemas/devices/keypad-vision.yaml",
+      "readmeHeaders": ["Keypad Vision Pro"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Outdoor Meter",
+      "displayName": "Outdoor Meter",
+      "yamlFile": "src/components/schemas/devices/outdoor-meter.yaml",
+      "readmeHeaders": ["Outdoor Meter"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Presence Sensor",
+      "displayName": "Presence Sensor",
+      "yamlFile": "src/components/schemas/devices/presence-sensor.yaml",
+      "readmeHeaders": ["Presence Sensor"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Water Leak Detector",
+      "displayName": "Water Leak Detector",
+      "yamlFile": "src/components/schemas/devices/water-leak-detector.yaml",
+      "readmeHeaders": ["Water Leak Detector"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Hub 3",
+      "displayName": "Hub 3",
+      "yamlFile": "src/components/schemas/devices/hub3.yaml",
+      "readmeHeaders": ["Hub 3"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "AI Hub",
+      "displayName": "AI Hub",
+      "yamlFile": "src/components/schemas/devices/ai-hub.yaml",
+      "readmeHeaders": ["AI Hub"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Evaporative Humidifier",
+      "displayName": "Evaporative Humidifier",
+      "yamlFile": "src/components/schemas/devices/evaporative-humidifier.yaml",
+      "readmeHeaders": ["Evaporative Humidifier"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Evaporative Humidifier (Auto)",
+      "displayName": "Evaporative Humidifier (Auto)",
+      "yamlFile": "src/components/schemas/devices/evaporative-humidifier.yaml",
+      "readmeHeaders": ["Evaporative Humidifier (Auto)"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Air Purifier VOC",
+      "displayName": "Air Purifier VOC",
+      "yamlFile": "src/components/schemas/devices/air-purifier-voc.yaml",
+      "readmeHeaders": ["Air Purifier VOC"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Air Purifier Table VOC",
+      "displayName": "Air Purifier Table VOC",
+      "yamlFile": "src/components/schemas/devices/air-purifier-voc.yaml",
+      "readmeHeaders": ["Air Purifier Table VOC"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Air Purifier PM2.5",
+      "displayName": "Air Purifier PM2.5",
+      "yamlFile": "src/components/schemas/devices/air-purifier-pm25.yaml",
+      "readmeHeaders": ["Air Purifier PM2.5"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Air Purifier Table PM2.5",
+      "displayName": "Air Purifier Table PM2.5",
+      "yamlFile": "src/components/schemas/devices/air-purifier-pm25.yaml",
+      "readmeHeaders": ["Air Purifier Table PM2.5"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Smart Radiator Thermostat",
+      "displayName": "Smart Radiator Thermostat",
+      "yamlFile": "src/components/schemas/devices/smart-radiator-thermostat.yaml",
+      "readmeHeaders": ["Smart Radiator Thermostat"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Battery Circulator Fan",
+      "displayName": "Battery Circulator Fan",
+      "yamlFile": "src/components/schemas/devices/circulator-fan.yaml",
+      "readmeHeaders": ["Battery Circulator Fan"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Circulator Fan",
+      "displayName": "Circulator Fan",
+      "yamlFile": "src/components/schemas/devices/circulator-fan.yaml",
+      "readmeHeaders": ["Circulator Fan"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Standing Circulator Fan",
+      "displayName": "Standing Circulator Fan",
+      "yamlFile": "src/components/schemas/devices/circulator-fan.yaml",
+      "readmeHeaders": ["Standing Circulator Fan"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Robot Vacuum Cleaner S1",
+      "displayName": "Robot Vacuum Cleaner S1",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["Robot Vacuum Cleaner S1"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Robot Vacuum Cleaner S1 Plus",
+      "displayName": "Robot Vacuum Cleaner S1 Plus",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["Robot Vacuum Cleaner S1 Plus"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "K10+",
+      "displayName": "K10+",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["K10+"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "K10+ Pro",
+      "displayName": "K10+ Pro",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["K10+ Pro"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "K10+ Pro Combo",
+      "displayName": "K10+ Pro Combo",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["K10+ Pro Combo"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "K11+",
+      "displayName": "K11+",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["K11+"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "K20+ Pro",
+      "displayName": "K20+ Pro",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["K20+ Pro"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Floor Cleaning S10",
+      "displayName": "Floor Cleaning S10",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["Floor Cleaning S10"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Floor Cleaning S20",
+      "displayName": "Floor Cleaning S20",
+      "yamlFile": "src/components/schemas/devices/robot-vacuum.yaml",
+      "readmeHeaders": ["Floor Cleaning S20"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Indoor Cam",
+      "displayName": "Indoor Cam",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Indoor Cam"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Pan/Tilt Cam",
+      "displayName": "Pan/Tilt Cam",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Pan/Tilt Cam"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Pan/Tilt Cam 2K",
+      "displayName": "Pan/Tilt Cam 2K",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Pan/Tilt Cam 2K"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Pan/Tilt Cam Plus 2K",
+      "displayName": "Pan/Tilt Cam Plus 2K",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Pan/Tilt Cam Plus 2K"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Pan/Tilt Cam Plus 3K",
+      "displayName": "Pan/Tilt Cam Plus 3K",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Pan/Tilt Cam Plus 3K"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Video Doorbell",
+      "displayName": "Video Doorbell",
+      "yamlFile": "src/components/schemas/devices/camera.yaml",
+      "readmeHeaders": ["Video Doorbell"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Garage Door Opener",
+      "displayName": "Garage Door Opener",
+      "yamlFile": "src/components/schemas/devices/garage-door-opener.yaml",
+      "readmeHeaders": ["Garage Door Opener"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Home Climate Panel",
+      "displayName": "Home Climate Panel",
+      "yamlFile": "src/components/schemas/devices/other-devices.yaml",
+      "readmeHeaders": ["Home Climate Panel"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "AI Art Frame",
+      "displayName": "AI Art Frame",
+      "yamlFile": "src/components/schemas/devices/other-devices.yaml",
+      "readmeHeaders": ["AI Art Frame"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    },
+    {
+      "deviceType": "Virtual IR Remote",
+      "displayName": "Virtual IR Remote",
+      "yamlFile": "src/components/schemas/devices/other-devices.yaml",
+      "readmeHeaders": ["Virtual IR Remote"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
     }
   ],
   "readme": {

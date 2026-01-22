@@ -1,0 +1,225 @@
+schemas:
+  RobotVacuumS1Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Robot Vacuum Cleaner S1
+            example: "Robot Vacuum Cleaner S1"
+
+  RobotVacuumS1PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Robot Vacuum Cleaner S1 Plus
+            example: "Robot Vacuum Cleaner S1 Plus"
+
+  RobotVacuumK10PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - K10+
+              - K10+ Pro
+              - K10+ Pro Combo
+            example: "K10+ Pro"
+
+  RobotVacuumK11PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - K11+
+            example: "K11+"
+
+  RobotVacuumK20PlusProDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - K20+ Pro
+            example: "K20+ Pro"
+
+  FloorCleaningS10Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Floor Cleaning S10
+            example: "Floor Cleaning S10"
+
+  FloorCleaningS20Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Floor Cleaning S20
+            example: "Floor Cleaning S20"
+
+  RobotVacuumStatus:
+    type: object
+    description: Robot Vacuum device status
+    required:
+      - deviceId
+      - deviceType
+      - workingStatus
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Robot Vacuum Cleaner S1
+          - Robot Vacuum Cleaner S1 Plus
+          - K10+
+          - K10+ Pro
+          - K10+ Pro Combo
+          - K11+
+          - K20+ Pro
+          - Floor Cleaning S10
+          - Floor Cleaning S20
+        example: "K10+ Pro"
+      workingStatus:
+        type: string
+        description: Current working status
+        enum:
+          - cleaning
+          - charging
+          - docked
+          - paused
+          - error
+        example: "cleaning"
+      battery:
+        type: integer
+        description: Battery level percentage
+        minimum: 0
+        maximum: 100
+        example: 85
+      cleaningMode:
+        type: string
+        description: Cleaning mode
+        enum:
+          - auto
+          - spot
+          - edge
+          - mop
+        example: "auto"
+
+  RobotVacuumCommand:
+    type: object
+    description: Robot Vacuum device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - start: Start cleaning
+          - stop: Stop cleaning
+          - dock: Return to dock
+          - setMode: Set cleaning mode
+        enum:
+          - start
+          - stop
+          - dock
+          - setMode
+        example: "start"
+      parameter:
+        type: string
+        description: For setMode (auto/spot/edge/mop), for start/stop/dock use "default"
+        example: "default"
+
+  RobotVacuumWebhookEvent:
+    type: object
+    description: Robot Vacuum webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - workingStatus
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Robot Vacuum Cleaner S1
+              - Robot Vacuum Cleaner S1 Plus
+              - K10+
+              - K10+ Pro
+              - K10+ Pro Combo
+              - K11+
+              - K20+ Pro
+              - Floor Cleaning S10
+              - Floor Cleaning S20
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          workingStatus:
+            type: string
+            enum:
+              - cleaning
+              - charging
+              - docked
+              - paused
+              - error
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          cleaningMode:
+            type: string
+            enum:
+              - auto
+              - spot
+              - edge
+              - mop
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

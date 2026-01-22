@@ -127,35 +127,33 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 **スイッチ・プラグ系:**
 - [x] src/components/schemas/devices/bot.yaml
 - [x] src/components/schemas/devices/plug.yaml
-- [ ] src/components/schemas/devices/plug-mini.yaml（US/JP/EU）
-- [ ] src/components/schemas/devices/relay-switch.yaml（1/1PM/2PM）
+- [x] src/components/schemas/devices/plug-mini.yaml（US/JP/EU）
+- [x] src/components/schemas/devices/relay-switch.yaml（1/1PM/2PM）
 
 **カーテン・ブラインド系:**
 - [x] src/components/schemas/devices/curtain.yaml (includes Curtain3)
 - [x] src/components/schemas/devices/curtain3.yaml (merged with curtain.yaml)
-- [ ] src/components/schemas/devices/blind-tilt.yaml
-- [ ] src/components/schemas/devices/roller-shade.yaml
+- [x] src/components/schemas/devices/blind-tilt.yaml
+- [x] src/components/schemas/devices/roller-shade.yaml
 
 **ロック系:**
 - [x] src/components/schemas/devices/lock.yaml
-- [ ] src/components/schemas/devices/lock-pro.yaml
-- [ ] src/components/schemas/devices/lock-ultra.yaml
-- [ ] src/components/schemas/devices/lock-lite.yaml
-- [ ] src/components/schemas/devices/keypad.yaml
-- [ ] src/components/schemas/devices/keypad-touch.yaml
-- [ ] src/components/schemas/devices/keypad-vision.yaml
-- [ ] src/components/schemas/devices/keypad-vision-pro.yaml
+- [x] src/components/schemas/devices/lock-pro.yaml
+- [x] src/components/schemas/devices/lock-ultra.yaml
+- [x] src/components/schemas/devices/lock-lite.yaml
+- [x] src/components/schemas/devices/keypad.yaml (includes Keypad Touch)
+- [x] src/components/schemas/devices/keypad-vision.yaml (includes Vision Pro)
 
 **センサー系:**
 - [x] src/components/schemas/devices/meter.yaml (includes Meter, MeterPlus, Meter Pro, Meter Pro CO2)
 - [x] src/components/schemas/devices/meter-plus.yaml (merged with meter.yaml)
 - [x] src/components/schemas/devices/meter-pro.yaml (merged with meter.yaml)
 - [x] src/components/schemas/devices/meter-pro-co2.yaml (merged with meter.yaml)
-- [ ] src/components/schemas/devices/outdoor-meter.yaml
+- [x] src/components/schemas/devices/outdoor-meter.yaml
 - [x] src/components/schemas/devices/motion-sensor.yaml
 - [x] src/components/schemas/devices/contact-sensor.yaml
-- [ ] src/components/schemas/devices/presence-sensor.yaml
-- [ ] src/components/schemas/devices/water-leak-detector.yaml
+- [x] src/components/schemas/devices/presence-sensor.yaml
+- [x] src/components/schemas/devices/water-leak-detector.yaml
 
 **ライト系:**
 - [x] src/components/schemas/devices/color-bulb.yaml
@@ -171,51 +169,29 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 **ハブ系:**
 - [x] src/components/schemas/devices/hub.yaml（Hub/Hub Plus/Hub Mini/Hub 2）
 - [x] src/components/schemas/devices/hub2.yaml (merged with hub.yaml)
-- [ ] src/components/schemas/devices/hub3.yaml
-- [ ] src/components/schemas/devices/ai-hub.yaml
+- [x] src/components/schemas/devices/hub3.yaml
+- [x] src/components/schemas/devices/ai-hub.yaml
 
 **ロボット掃除機系:**
-- [ ] src/components/schemas/devices/robot-vacuum-s1.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-s1-plus.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-k10-plus.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-k10-plus-pro.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-k10-pro-combo.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-k11-plus.yaml
-- [ ] src/components/schemas/devices/robot-vacuum-k20-plus-pro.yaml
-- [ ] src/components/schemas/devices/floor-cleaning-s10.yaml
-- [ ] src/components/schemas/devices/floor-cleaning-s20.yaml
+- [x] src/components/schemas/devices/robot-vacuum.yaml (includes all S1/K10+/K11+/K20+/Floor Cleaning models)
 
 **空調・加湿系:**
 - [x] src/components/schemas/devices/humidifier.yaml
-- [ ] src/components/schemas/devices/evaporative-humidifier.yaml
-- [ ] src/components/schemas/devices/evaporative-humidifier-auto.yaml
-- [ ] src/components/schemas/devices/air-purifier-voc.yaml
-- [ ] src/components/schemas/devices/air-purifier-table-voc.yaml
-- [ ] src/components/schemas/devices/air-purifier-pm25.yaml
-- [ ] src/components/schemas/devices/air-purifier-table-pm25.yaml
-- [ ] src/components/schemas/devices/smart-radiator-thermostat.yaml
+- [x] src/components/schemas/devices/evaporative-humidifier.yaml (includes Auto variant)
+- [x] src/components/schemas/devices/air-purifier-voc.yaml (includes Table VOC)
+- [x] src/components/schemas/devices/air-purifier-pm25.yaml (includes Table PM2.5)
+- [x] src/components/schemas/devices/smart-radiator-thermostat.yaml
 
 **ファン系:**
-- [ ] src/components/schemas/devices/battery-circulator-fan.yaml
-- [ ] src/components/schemas/devices/circulator-fan.yaml
-- [ ] src/components/schemas/devices/standing-circulator-fan.yaml
+- [x] src/components/schemas/devices/circulator-fan.yaml (includes Battery/Circulator/Standing variants)
 
 **カメラ系:**
-- [ ] src/components/schemas/devices/indoor-cam.yaml
-- [ ] src/components/schemas/devices/pan-tilt-cam.yaml
-- [ ] src/components/schemas/devices/pan-tilt-cam-2k.yaml
-- [ ] src/components/schemas/devices/pan-tilt-cam-plus-2k.yaml
-- [ ] src/components/schemas/devices/pan-tilt-cam-plus-3k.yaml
-- [ ] src/components/schemas/devices/video-doorbell.yaml
+- [x] src/components/schemas/devices/camera.yaml (includes Indoor Cam, Pan/Tilt Cam variants, Video Doorbell)
 
 **その他:**
 - [x] src/components/schemas/devices/remote.yaml
-- [ ] src/components/schemas/devices/garage-door-opener.yaml
-- [ ] src/components/schemas/devices/home-climate-panel.yaml
-- [ ] src/components/schemas/devices/ai-art-frame.yaml
-
-**仮想赤外線リモコン:**
-- [ ] src/components/schemas/devices/virtual-ir-remote.yaml
+- [x] src/components/schemas/devices/garage-door-opener.yaml
+- [x] src/components/schemas/devices/other-devices.yaml (includes Home Climate Panel, AI Art Frame, Virtual IR Remote)
 
 ### 4.2 各デバイススキーマの構成（テンプレート）
 各デバイスYAMLには以下を含める:
@@ -327,11 +303,15 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 - [x] openapi.yaml の完全性検証
 
 ### 8.3 GitHub Actions E2E テスト
-- [ ] 手動トリガーで全フロー実行（LLM API統合後に実施）
-- [ ] PR生成確認
-- [ ] 生成されたYAMLの品質確認
+- [x] extract-sections.jsスクリプトの動作確認（49デバイスセクション検出成功）
+- [x] hash-store.jsonの変更検知機能確認
+- [x] GitHub Actionsワークフロー設定確認（update-api.yml, validate.yml）
+- [x] バンドル・バリデーション機能確認（全63デバイスタイプで成功）
+- [ ] 手動トリガーで全フロー実行（実際のPR生成はGitHub上で実施）
+- [ ] PR生成確認（GitHub上での手動トリガー後）
+- [ ] 生成されたYAMLの品質確認（自動生成時）
 
-**注**: 残り60+デバイスは、LLM API統合後に自動生成または手動で追加可能
+**注**: 全63デバイスタイプの手動作成完了。自動更新システムは稼働準備完了。
 
 ---
 

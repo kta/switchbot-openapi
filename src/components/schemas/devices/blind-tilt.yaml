@@ -57,3 +57,54 @@ schemas:
       parameter:
         type: string
         description: For setPosition, use "0,ff,<position>" format
+
+  BlindTiltWebhookEvent:
+    type: object
+    description: Blind Tilt webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - direction
+          - slidePosition
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Blind Tilt
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          direction:
+            type: string
+            enum:
+              - up
+              - down
+          slidePosition:
+            type: integer
+            minimum: 0
+            maximum: 100
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

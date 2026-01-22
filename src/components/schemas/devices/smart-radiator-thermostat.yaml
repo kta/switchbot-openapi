@@ -1,0 +1,131 @@
+schemas:
+  SmartRadiatorThermostatDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Smart Radiator Thermostat
+            example: "Smart Radiator Thermostat"
+
+  SmartRadiatorThermostatStatus:
+    type: object
+    description: Smart Radiator Thermostat device status
+    required:
+      - deviceId
+      - deviceType
+      - temperature
+      - mode
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Smart Radiator Thermostat
+        example: "Smart Radiator Thermostat"
+      temperature:
+        type: number
+        description: Current temperature in Celsius
+        example: 21.5
+      targetTemperature:
+        type: number
+        description: Target temperature in Celsius
+        example: 22.0
+      mode:
+        type: string
+        description: Operation mode
+        enum:
+          - heat
+          - off
+          - auto
+        example: "heat"
+      battery:
+        type: integer
+        description: Battery level percentage
+        minimum: 0
+        maximum: 100
+        example: 70
+
+  SmartRadiatorThermostatCommand:
+    type: object
+    description: Smart Radiator Thermostat device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - setMode: Set operation mode
+          - setTemperature: Set target temperature
+        enum:
+          - setMode
+          - setTemperature
+        example: "setTemperature"
+      parameter:
+        type: string
+        description: For setMode (heat/off/auto), for setTemperature (temperature value)
+        example: "22"
+
+  SmartRadiatorThermostatWebhookEvent:
+    type: object
+    description: Smart Radiator Thermostat webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - temperature
+          - mode
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Smart Radiator Thermostat
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          temperature:
+            type: number
+          targetTemperature:
+            type: number
+          mode:
+            type: string
+            enum:
+              - heat
+              - "off"
+              - auto
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

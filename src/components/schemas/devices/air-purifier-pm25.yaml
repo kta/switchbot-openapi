@@ -1,0 +1,146 @@
+schemas:
+  AirPurifierPM25Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Air Purifier PM2.5
+            example: "Air Purifier PM2.5"
+
+  AirPurifierTablePM25Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Air Purifier Table PM2.5
+            example: "Air Purifier Table PM2.5"
+
+  AirPurifierPM25Status:
+    type: object
+    description: Air Purifier PM2.5 device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Air Purifier PM2.5
+          - Air Purifier Table PM2.5
+        example: "Air Purifier PM2.5"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      fanSpeed:
+        type: integer
+        description: Fan speed level (1-4)
+        minimum: 1
+        maximum: 4
+        example: 2
+      mode:
+        type: string
+        description: Operation mode
+        enum:
+          - auto
+          - manual
+          - sleep
+        example: "auto"
+
+  AirPurifierPM25Command:
+    type: object
+    description: Air Purifier PM2.5 device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the air purifier
+          - turnOff: Turn off the air purifier
+          - setFanSpeed: Set fan speed (1-4)
+          - setMode: Set operation mode
+        enum:
+          - turnOn
+          - turnOff
+          - setFanSpeed
+          - setMode
+        example: "setMode"
+      parameter:
+        type: string
+        description: For setFanSpeed (1-4), for setMode (auto/manual/sleep), for turnOn/turnOff use "default"
+        example: "auto"
+
+  AirPurifierPM25WebhookEvent:
+    type: object
+    description: Air Purifier PM2.5 webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Air Purifier PM2.5
+              - Air Purifier Table PM2.5
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          fanSpeed:
+            type: integer
+            minimum: 1
+            maximum: 4
+          mode:
+            type: string
+            enum:
+              - auto
+              - manual
+              - sleep
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789
