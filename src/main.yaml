@@ -70,4 +70,342 @@ components:
     $ref: './components/responses.yaml#/responses'
 
   schemas:
-    $ref: './components/schemas/common.yaml#/schemas'
+    # Common schemas
+    BaseResponse:
+      $ref: './components/schemas/common.yaml#/schemas/BaseResponse'
+    ErrorResponse:
+      $ref: './components/schemas/common.yaml#/schemas/ErrorResponse'
+    DeviceBase:
+      $ref: './components/schemas/common.yaml#/schemas/DeviceBase'
+
+    # Device-specific schemas (auto-generated)
+    BotDevice:
+      $ref: './components/schemas/devices/bot.yaml#/schemas/BotDevice'
+    BotStatus:
+      $ref: './components/schemas/devices/bot.yaml#/schemas/BotStatus'
+    BotCommand:
+      $ref: './components/schemas/devices/bot.yaml#/schemas/BotCommand'
+    PlugDevice:
+      $ref: './components/schemas/devices/plug.yaml#/schemas/PlugDevice'
+    PlugStatus:
+      $ref: './components/schemas/devices/plug.yaml#/schemas/PlugStatus'
+    PlugCommand:
+      $ref: './components/schemas/devices/plug.yaml#/schemas/PlugCommand'
+    PlugWebhookEvent:
+      $ref: './components/schemas/devices/plug.yaml#/schemas/PlugWebhookEvent'
+    CurtainDevice:
+      $ref: './components/schemas/devices/curtain.yaml#/schemas/CurtainDevice'
+    CurtainStatus:
+      $ref: './components/schemas/devices/curtain.yaml#/schemas/CurtainStatus'
+    CurtainCommand:
+      $ref: './components/schemas/devices/curtain.yaml#/schemas/CurtainCommand'
+    CurtainWebhookEvent:
+      $ref: './components/schemas/devices/curtain.yaml#/schemas/CurtainWebhookEvent'
+    HumidifierDevice:
+      $ref: './components/schemas/devices/humidifier.yaml#/schemas/HumidifierDevice'
+    HumidifierStatus:
+      $ref: './components/schemas/devices/humidifier.yaml#/schemas/HumidifierStatus'
+    HumidifierCommand:
+      $ref: './components/schemas/devices/humidifier.yaml#/schemas/HumidifierCommand'
+    HumidifierWebhookEvent:
+      $ref: './components/schemas/devices/humidifier.yaml#/schemas/HumidifierWebhookEvent'
+    LockDevice:
+      $ref: './components/schemas/devices/lock.yaml#/schemas/LockDevice'
+    LockStatus:
+      $ref: './components/schemas/devices/lock.yaml#/schemas/LockStatus'
+    LockCommand:
+      $ref: './components/schemas/devices/lock.yaml#/schemas/LockCommand'
+    LockWebhookEvent:
+      $ref: './components/schemas/devices/lock.yaml#/schemas/LockWebhookEvent'
+    MeterDevice:
+      $ref: './components/schemas/devices/meter.yaml#/schemas/MeterDevice'
+    MeterStatus:
+      $ref: './components/schemas/devices/meter.yaml#/schemas/MeterStatus'
+    MeterWebhookEvent:
+      $ref: './components/schemas/devices/meter.yaml#/schemas/MeterWebhookEvent'
+    HubDevice:
+      $ref: './components/schemas/devices/hub.yaml#/schemas/HubDevice'
+    HubStatus:
+      $ref: './components/schemas/devices/hub.yaml#/schemas/HubStatus'
+    ColorBulbDevice:
+      $ref: './components/schemas/devices/color-bulb.yaml#/schemas/ColorBulbDevice'
+    ColorBulbStatus:
+      $ref: './components/schemas/devices/color-bulb.yaml#/schemas/ColorBulbStatus'
+    ColorBulbCommand:
+      $ref: './components/schemas/devices/color-bulb.yaml#/schemas/ColorBulbCommand'
+    ColorBulbWebhookEvent:
+      $ref: './components/schemas/devices/color-bulb.yaml#/schemas/ColorBulbWebhookEvent'
+    StripLightDevice:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLightDevice'
+    StripLight3Device:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLight3Device'
+    StripLightStatus:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLightStatus'
+    StripLight3Status:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLight3Status'
+    StripLightCommand:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLightCommand'
+    StripLight3Command:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLight3Command'
+    StripLightWebhookEvent:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLightWebhookEvent'
+    StripLight3WebhookEvent:
+      $ref: './components/schemas/devices/strip-light.yaml#/schemas/StripLight3WebhookEvent'
+    CeilingLightDevice:
+      $ref: './components/schemas/devices/ceiling-light.yaml#/schemas/CeilingLightDevice'
+    CeilingLightProDevice:
+      $ref: './components/schemas/devices/ceiling-light.yaml#/schemas/CeilingLightProDevice'
+    CeilingLightStatus:
+      $ref: './components/schemas/devices/ceiling-light.yaml#/schemas/CeilingLightStatus'
+    CeilingLightCommand:
+      $ref: './components/schemas/devices/ceiling-light.yaml#/schemas/CeilingLightCommand'
+    CeilingLightWebhookEvent:
+      $ref: './components/schemas/devices/ceiling-light.yaml#/schemas/CeilingLightWebhookEvent'
+    FloorLampDevice:
+      $ref: './components/schemas/devices/floor-lamp.yaml#/schemas/FloorLampDevice'
+    FloorLampStatus:
+      $ref: './components/schemas/devices/floor-lamp.yaml#/schemas/FloorLampStatus'
+    FloorLampCommand:
+      $ref: './components/schemas/devices/floor-lamp.yaml#/schemas/FloorLampCommand'
+    FloorLampWebhookEvent:
+      $ref: './components/schemas/devices/floor-lamp.yaml#/schemas/FloorLampWebhookEvent'
+    RGBICWWStripLightDevice:
+      $ref: './components/schemas/devices/rgbicww-strip-light.yaml#/schemas/RGBICWWStripLightDevice'
+    RGBICWWStripLightStatus:
+      $ref: './components/schemas/devices/rgbicww-strip-light.yaml#/schemas/RGBICWWStripLightStatus'
+    RGBICWWStripLightCommand:
+      $ref: './components/schemas/devices/rgbicww-strip-light.yaml#/schemas/RGBICWWStripLightCommand'
+    RGBICWWStripLightWebhookEvent:
+      $ref: './components/schemas/devices/rgbicww-strip-light.yaml#/schemas/RGBICWWStripLightWebhookEvent'
+    RGBICWWFloorLampDevice:
+      $ref: './components/schemas/devices/rgbicww-floor-lamp.yaml#/schemas/RGBICWWFloorLampDevice'
+    RGBICWWFloorLampStatus:
+      $ref: './components/schemas/devices/rgbicww-floor-lamp.yaml#/schemas/RGBICWWFloorLampStatus'
+    RGBICWWFloorLampCommand:
+      $ref: './components/schemas/devices/rgbicww-floor-lamp.yaml#/schemas/RGBICWWFloorLampCommand'
+    RGBICWWFloorLampWebhookEvent:
+      $ref: './components/schemas/devices/rgbicww-floor-lamp.yaml#/schemas/RGBICWWFloorLampWebhookEvent'
+    RGBICNeonWireRopeLightDevice:
+      $ref: './components/schemas/devices/rgbic-neon-wire.yaml#/schemas/RGBICNeonWireRopeLightDevice'
+    RGBICNeonWireRopeLightStatus:
+      $ref: './components/schemas/devices/rgbic-neon-wire.yaml#/schemas/RGBICNeonWireRopeLightStatus'
+    RGBICNeonWireRopeLightCommand:
+      $ref: './components/schemas/devices/rgbic-neon-wire.yaml#/schemas/RGBICNeonWireRopeLightCommand'
+    RGBICNeonWireRopeLightWebhookEvent:
+      $ref: './components/schemas/devices/rgbic-neon-wire.yaml#/schemas/RGBICNeonWireRopeLightWebhookEvent'
+    RGBICNeonRopeLightDevice:
+      $ref: './components/schemas/devices/rgbic-neon-rope.yaml#/schemas/RGBICNeonRopeLightDevice'
+    RGBICNeonRopeLightStatus:
+      $ref: './components/schemas/devices/rgbic-neon-rope.yaml#/schemas/RGBICNeonRopeLightStatus'
+    RGBICNeonRopeLightCommand:
+      $ref: './components/schemas/devices/rgbic-neon-rope.yaml#/schemas/RGBICNeonRopeLightCommand'
+    RGBICNeonRopeLightWebhookEvent:
+      $ref: './components/schemas/devices/rgbic-neon-rope.yaml#/schemas/RGBICNeonRopeLightWebhookEvent'
+    CandleWarmerLampDevice:
+      $ref: './components/schemas/devices/candle-warmer-lamp.yaml#/schemas/CandleWarmerLampDevice'
+    CandleWarmerLampStatus:
+      $ref: './components/schemas/devices/candle-warmer-lamp.yaml#/schemas/CandleWarmerLampStatus'
+    CandleWarmerLampCommand:
+      $ref: './components/schemas/devices/candle-warmer-lamp.yaml#/schemas/CandleWarmerLampCommand'
+    CandleWarmerLampWebhookEvent:
+      $ref: './components/schemas/devices/candle-warmer-lamp.yaml#/schemas/CandleWarmerLampWebhookEvent'
+    PlugMiniDevice:
+      $ref: './components/schemas/devices/plug-mini.yaml#/schemas/PlugMiniDevice'
+    PlugMiniStatus:
+      $ref: './components/schemas/devices/plug-mini.yaml#/schemas/PlugMiniStatus'
+    PlugMiniCommand:
+      $ref: './components/schemas/devices/plug-mini.yaml#/schemas/PlugMiniCommand'
+    PlugMiniWebhookEvent:
+      $ref: './components/schemas/devices/plug-mini.yaml#/schemas/PlugMiniWebhookEvent'
+    RelaySwitchDevice:
+      $ref: './components/schemas/devices/relay-switch.yaml#/schemas/RelaySwitchDevice'
+    RelaySwitchStatus:
+      $ref: './components/schemas/devices/relay-switch.yaml#/schemas/RelaySwitchStatus'
+    RelaySwitchCommand:
+      $ref: './components/schemas/devices/relay-switch.yaml#/schemas/RelaySwitchCommand'
+    RelaySwitchWebhookEvent:
+      $ref: './components/schemas/devices/relay-switch.yaml#/schemas/RelaySwitchWebhookEvent'
+    BlindTiltDevice:
+      $ref: './components/schemas/devices/blind-tilt.yaml#/schemas/BlindTiltDevice'
+    BlindTiltStatus:
+      $ref: './components/schemas/devices/blind-tilt.yaml#/schemas/BlindTiltStatus'
+    BlindTiltCommand:
+      $ref: './components/schemas/devices/blind-tilt.yaml#/schemas/BlindTiltCommand'
+    BlindTiltWebhookEvent:
+      $ref: './components/schemas/devices/blind-tilt.yaml#/schemas/BlindTiltWebhookEvent'
+    RollerShadeDevice:
+      $ref: './components/schemas/devices/roller-shade.yaml#/schemas/RollerShadeDevice'
+    RollerShadeStatus:
+      $ref: './components/schemas/devices/roller-shade.yaml#/schemas/RollerShadeStatus'
+    RollerShadeCommand:
+      $ref: './components/schemas/devices/roller-shade.yaml#/schemas/RollerShadeCommand'
+    RollerShadeWebhookEvent:
+      $ref: './components/schemas/devices/roller-shade.yaml#/schemas/RollerShadeWebhookEvent'
+    LockProDevice:
+      $ref: './components/schemas/devices/lock-pro.yaml#/schemas/LockProDevice'
+    LockProStatus:
+      $ref: './components/schemas/devices/lock-pro.yaml#/schemas/LockProStatus'
+    LockProCommand:
+      $ref: './components/schemas/devices/lock-pro.yaml#/schemas/LockProCommand'
+    LockProWebhookEvent:
+      $ref: './components/schemas/devices/lock-pro.yaml#/schemas/LockProWebhookEvent'
+    KeypadDevice:
+      $ref: './components/schemas/devices/keypad.yaml#/schemas/KeypadDevice'
+    KeypadStatus:
+      $ref: './components/schemas/devices/keypad.yaml#/schemas/KeypadStatus'
+    KeypadWebhookEvent:
+      $ref: './components/schemas/devices/keypad.yaml#/schemas/KeypadWebhookEvent'
+    LockUltraDevice:
+      $ref: './components/schemas/devices/lock-ultra.yaml#/schemas/LockUltraDevice'
+    LockUltraStatus:
+      $ref: './components/schemas/devices/lock-ultra.yaml#/schemas/LockUltraStatus'
+    LockUltraCommand:
+      $ref: './components/schemas/devices/lock-ultra.yaml#/schemas/LockUltraCommand'
+    LockUltraWebhookEvent:
+      $ref: './components/schemas/devices/lock-ultra.yaml#/schemas/LockUltraWebhookEvent'
+    LockLiteDevice:
+      $ref: './components/schemas/devices/lock-lite.yaml#/schemas/LockLiteDevice'
+    LockLiteStatus:
+      $ref: './components/schemas/devices/lock-lite.yaml#/schemas/LockLiteStatus'
+    LockLiteCommand:
+      $ref: './components/schemas/devices/lock-lite.yaml#/schemas/LockLiteCommand'
+    LockLiteWebhookEvent:
+      $ref: './components/schemas/devices/lock-lite.yaml#/schemas/LockLiteWebhookEvent'
+    KeypadVisionDevice:
+      $ref: './components/schemas/devices/keypad-vision.yaml#/schemas/KeypadVisionDevice'
+    KeypadVisionProDevice:
+      $ref: './components/schemas/devices/keypad-vision.yaml#/schemas/KeypadVisionProDevice'
+    KeypadVisionStatus:
+      $ref: './components/schemas/devices/keypad-vision.yaml#/schemas/KeypadVisionStatus'
+    KeypadVisionWebhookEvent:
+      $ref: './components/schemas/devices/keypad-vision.yaml#/schemas/KeypadVisionWebhookEvent'
+    OutdoorMeterDevice:
+      $ref: './components/schemas/devices/outdoor-meter.yaml#/schemas/OutdoorMeterDevice'
+    OutdoorMeterStatus:
+      $ref: './components/schemas/devices/outdoor-meter.yaml#/schemas/OutdoorMeterStatus'
+    OutdoorMeterWebhookEvent:
+      $ref: './components/schemas/devices/outdoor-meter.yaml#/schemas/OutdoorMeterWebhookEvent'
+    PresenceSensorDevice:
+      $ref: './components/schemas/devices/presence-sensor.yaml#/schemas/PresenceSensorDevice'
+    PresenceSensorStatus:
+      $ref: './components/schemas/devices/presence-sensor.yaml#/schemas/PresenceSensorStatus'
+    PresenceSensorWebhookEvent:
+      $ref: './components/schemas/devices/presence-sensor.yaml#/schemas/PresenceSensorWebhookEvent'
+    WaterLeakDetectorDevice:
+      $ref: './components/schemas/devices/water-leak-detector.yaml#/schemas/WaterLeakDetectorDevice'
+    WaterLeakDetectorStatus:
+      $ref: './components/schemas/devices/water-leak-detector.yaml#/schemas/WaterLeakDetectorStatus'
+    WaterLeakDetectorWebhookEvent:
+      $ref: './components/schemas/devices/water-leak-detector.yaml#/schemas/WaterLeakDetectorWebhookEvent'
+    Hub3Device:
+      $ref: './components/schemas/devices/hub3.yaml#/schemas/Hub3Device'
+    Hub3Status:
+      $ref: './components/schemas/devices/hub3.yaml#/schemas/Hub3Status'
+    AIHubDevice:
+      $ref: './components/schemas/devices/ai-hub.yaml#/schemas/AIHubDevice'
+    AIHubStatus:
+      $ref: './components/schemas/devices/ai-hub.yaml#/schemas/AIHubStatus'
+    EvaporativeHumidifierDevice:
+      $ref: './components/schemas/devices/evaporative-humidifier.yaml#/schemas/EvaporativeHumidifierDevice'
+    EvaporativeHumidifierAutoDevice:
+      $ref: './components/schemas/devices/evaporative-humidifier.yaml#/schemas/EvaporativeHumidifierAutoDevice'
+    EvaporativeHumidifierStatus:
+      $ref: './components/schemas/devices/evaporative-humidifier.yaml#/schemas/EvaporativeHumidifierStatus'
+    EvaporativeHumidifierCommand:
+      $ref: './components/schemas/devices/evaporative-humidifier.yaml#/schemas/EvaporativeHumidifierCommand'
+    EvaporativeHumidifierWebhookEvent:
+      $ref: './components/schemas/devices/evaporative-humidifier.yaml#/schemas/EvaporativeHumidifierWebhookEvent'
+    AirPurifierVOCDevice:
+      $ref: './components/schemas/devices/air-purifier-voc.yaml#/schemas/AirPurifierVOCDevice'
+    AirPurifierTableVOCDevice:
+      $ref: './components/schemas/devices/air-purifier-voc.yaml#/schemas/AirPurifierTableVOCDevice'
+    AirPurifierVOCStatus:
+      $ref: './components/schemas/devices/air-purifier-voc.yaml#/schemas/AirPurifierVOCStatus'
+    AirPurifierVOCCommand:
+      $ref: './components/schemas/devices/air-purifier-voc.yaml#/schemas/AirPurifierVOCCommand'
+    AirPurifierVOCWebhookEvent:
+      $ref: './components/schemas/devices/air-purifier-voc.yaml#/schemas/AirPurifierVOCWebhookEvent'
+    AirPurifierPM25Device:
+      $ref: './components/schemas/devices/air-purifier-pm25.yaml#/schemas/AirPurifierPM25Device'
+    AirPurifierTablePM25Device:
+      $ref: './components/schemas/devices/air-purifier-pm25.yaml#/schemas/AirPurifierTablePM25Device'
+    AirPurifierPM25Status:
+      $ref: './components/schemas/devices/air-purifier-pm25.yaml#/schemas/AirPurifierPM25Status'
+    AirPurifierPM25Command:
+      $ref: './components/schemas/devices/air-purifier-pm25.yaml#/schemas/AirPurifierPM25Command'
+    AirPurifierPM25WebhookEvent:
+      $ref: './components/schemas/devices/air-purifier-pm25.yaml#/schemas/AirPurifierPM25WebhookEvent'
+    SmartRadiatorThermostatDevice:
+      $ref: './components/schemas/devices/smart-radiator-thermostat.yaml#/schemas/SmartRadiatorThermostatDevice'
+    SmartRadiatorThermostatStatus:
+      $ref: './components/schemas/devices/smart-radiator-thermostat.yaml#/schemas/SmartRadiatorThermostatStatus'
+    SmartRadiatorThermostatCommand:
+      $ref: './components/schemas/devices/smart-radiator-thermostat.yaml#/schemas/SmartRadiatorThermostatCommand'
+    SmartRadiatorThermostatWebhookEvent:
+      $ref: './components/schemas/devices/smart-radiator-thermostat.yaml#/schemas/SmartRadiatorThermostatWebhookEvent'
+    BatteryCirculatorFanDevice:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/BatteryCirculatorFanDevice'
+    CirculatorFanDevice:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/CirculatorFanDevice'
+    StandingCirculatorFanDevice:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/StandingCirculatorFanDevice'
+    CirculatorFanStatus:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/CirculatorFanStatus'
+    CirculatorFanCommand:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/CirculatorFanCommand'
+    CirculatorFanWebhookEvent:
+      $ref: './components/schemas/devices/circulator-fan.yaml#/schemas/CirculatorFanWebhookEvent'
+    RobotVacuumS1Device:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumS1Device'
+    RobotVacuumS1PlusDevice:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumS1PlusDevice'
+    RobotVacuumK10PlusDevice:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumK10PlusDevice'
+    RobotVacuumK11PlusDevice:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumK11PlusDevice'
+    RobotVacuumK20PlusProDevice:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumK20PlusProDevice'
+    FloorCleaningS10Device:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/FloorCleaningS10Device'
+    FloorCleaningS20Device:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/FloorCleaningS20Device'
+    RobotVacuumStatus:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumStatus'
+    RobotVacuumCommand:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumCommand'
+    RobotVacuumWebhookEvent:
+      $ref: './components/schemas/devices/robot-vacuum.yaml#/schemas/RobotVacuumWebhookEvent'
+    IndoorCamDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/IndoorCamDevice'
+    PanTiltCamDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/PanTiltCamDevice'
+    PanTiltCam2KDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/PanTiltCam2KDevice'
+    PanTiltCamPlus2KDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/PanTiltCamPlus2KDevice'
+    PanTiltCamPlus3KDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/PanTiltCamPlus3KDevice'
+    VideoDoorbellDevice:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/VideoDoorbellDevice'
+    CameraStatus:
+      $ref: './components/schemas/devices/camera.yaml#/schemas/CameraStatus'
+    GarageDoorOpenerDevice:
+      $ref: './components/schemas/devices/garage-door-opener.yaml#/schemas/GarageDoorOpenerDevice'
+    GarageDoorOpenerStatus:
+      $ref: './components/schemas/devices/garage-door-opener.yaml#/schemas/GarageDoorOpenerStatus'
+    GarageDoorOpenerCommand:
+      $ref: './components/schemas/devices/garage-door-opener.yaml#/schemas/GarageDoorOpenerCommand'
+    GarageDoorOpenerWebhookEvent:
+      $ref: './components/schemas/devices/garage-door-opener.yaml#/schemas/GarageDoorOpenerWebhookEvent'
+    HomeClimatePanelDevice:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/HomeClimatePanelDevice'
+    HomeClimatePanelStatus:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/HomeClimatePanelStatus'
+    AIArtFrameDevice:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/AIArtFrameDevice'
+    AIArtFrameStatus:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/AIArtFrameStatus'
+    VirtualIRRemoteDevice:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/VirtualIRRemoteDevice'
+    VirtualIRRemoteStatus:
+      $ref: './components/schemas/devices/other-devices.yaml#/schemas/VirtualIRRemoteStatus'

@@ -7,9 +7,13 @@
   "scripts": {
     "bundle": "redocly bundle src/main.yaml -o openapi.yaml",
     "validate": "redocly lint openapi.yaml",
-    "build": "npm run bundle && npm run validate",
+    "build": "npm run bundle && npm run validate && npm run build:docs && npm run copy:spec",
+    "build:docs": "redocly build-docs openapi.yaml -o dist.html && mkdir -p dist && mv dist.html dist/index.html",
+    "copy:spec": "cp openapi.yaml dist/openapi.yaml",
     "extract": "node scripts/extract-sections.js",
-    "test:copilot": "node scripts/test-copilot.js"
+    "test:copilot": "node scripts/test-copilot.js",
+    "deploy": "npm run build && npx vercel --prod",
+    "deploy:preview": "npm run build && npx vercel"
   },
   "keywords": [
     "switchbot",
