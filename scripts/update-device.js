@@ -32,18 +32,42 @@ function generatePrompt(deviceType, readmeSection, existingSchema) {
 }
 
 /**
+ * Get GitHub token from environment or gh CLI
+ */
+async function getGitHubToken() {
+  // Try environment variable first
+  if (process.env.GITHUB_TOKEN) {
+    return process.env.GITHUB_TOKEN;
+  }
+
+  // Try to get token from gh CLI
+  try {
+    const { execSync } = await import('child_process');
+    const token = execSync('gh auth token', { encoding: 'utf-8' }).trim();
+    if (token) {
+      console.log('ℹ️  Using GitHub token from gh CLI');
+      return token;
+    }
+  } catch (error) {
+    // gh CLI not available or not authenticated
+  }
+
+  console.error('❌ GitHub token not found');
+  console.error('');
+  console.error('Please authenticate with GitHub CLI:');
+  console.error('  gh auth login');
+  console.error('');
+  console.error('Or set GITHUB_TOKEN environment variable:');
+  console.error('  export GITHUB_TOKEN=$(gh auth token)');
+  throw new Error('GITHUB_TOKEN not configured');
+}
+
+/**
  * Call GitHub Copilot API to generate schema
  * Uses GitHub Models API with GPT-4o
  */
 async function callLLM(prompt) {
-  const token = process.env.GITHUB_TOKEN;
-
-  if (!token) {
-    console.error('❌ GITHUB_TOKEN environment variable not set');
-    console.error('Please set your GitHub Personal Access Token:');
-    console.error('export GITHUB_TOKEN=your_github_token');
-    throw new Error('GITHUB_TOKEN not configured');
-  }
+  const token = await getGitHubToken();
 
   console.log('🤖 Calling GitHub Copilot API...');
 

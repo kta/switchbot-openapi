@@ -5,20 +5,37 @@
  * Usage: GITHUB_TOKEN=your_token node scripts/test-copilot.js
  */
 
-async function testCopilotAPI() {
-  const token = process.env.GITHUB_TOKEN;
-
-  if (!token) {
-    console.error('❌ Error: GITHUB_TOKEN environment variable not set');
-    console.error('');
-    console.error('To test GitHub Copilot API integration:');
-    console.error('1. Create a GitHub Personal Access Token:');
-    console.error('   https://github.com/settings/tokens');
-    console.error('2. Generate a token with "repo" scope');
-    console.error('3. Run: export GITHUB_TOKEN=ghp_your_token_here');
-    console.error('4. Run this script again');
-    process.exit(1);
+/**
+ * Get GitHub token from environment or gh CLI
+ */
+async function getGitHubToken() {
+  // Try environment variable first
+  if (process.env.GITHUB_TOKEN) {
+    return process.env.GITHUB_TOKEN;
   }
+
+  // Try to get token from gh CLI
+  try {
+    const { execSync } = await import('child_process');
+    const token = execSync('gh auth token', { encoding: 'utf-8' }).trim();
+    if (token) {
+      console.log('✅ Using GitHub token from gh CLI\n');
+      return token;
+    }
+  } catch (error) {
+    // gh CLI not available or not authenticated
+  }
+
+  console.error('❌ Error: GitHub token not found\n');
+  console.error('Please authenticate with GitHub CLI:');
+  console.error('  gh auth login\n');
+  console.error('Or set GITHUB_TOKEN environment variable:');
+  console.error('  export GITHUB_TOKEN=$(gh auth token)\n');
+  process.exit(1);
+}
+
+async function testCopilotAPI() {
+  const token = await getGitHubToken();
 
   console.log('🧪 Testing GitHub Copilot API integration...\n');
 

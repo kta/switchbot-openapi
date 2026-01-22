@@ -1,11 +1,12 @@
 # Dependencies
 node_modules/
-package-lock.json
 yarn.lock
 
 # Build outputs
-openapi.yaml
 dist/
+
+# Generated files from automation
+scripts/changed-sections.json
 
 # Environment variables
 .env

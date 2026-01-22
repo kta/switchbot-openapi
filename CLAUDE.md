@@ -127,12 +127,17 @@ The update scripts use **GitHub Models API** (GitHub Copilot with GPT-4o) to aut
 
 ### Local Testing
 ```bash
-# Set your GitHub Personal Access Token
-export GITHUB_TOKEN=ghp_your_token_here
+# Authenticate with GitHub CLI (one-time)
+gh auth login
 
-# Update a specific device
+# Test the integration
+npm run test:copilot
+
+# Update a specific device (token auto-detected)
 node scripts/update-device.js Bot
 ```
+
+The scripts automatically detect and use your `gh` CLI authentication!
 
 ### API Details
 - **Endpoint**: `https://models.inference.ai.azure.com/chat/completions`

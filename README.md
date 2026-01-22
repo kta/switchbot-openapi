@@ -114,12 +114,14 @@ The system uses **GitHub Models API** (powered by GitHub Copilot) to automatical
 When changes are detected, schemas are regenerated using:
 
 ```bash
-# Set your GitHub token (for local testing)
-export GITHUB_TOKEN=ghp_your_token_here
+# Authenticate with GitHub CLI (one-time setup)
+gh auth login
 
-# Update a specific device
+# Update a specific device (token auto-detected from gh CLI)
 node scripts/update-device.js <deviceType>
 ```
+
+The script automatically uses your GitHub CLI authentication - no manual token setup required!
 
 The script uses GPT-4o via GitHub Models API to:
 - Parse unstructured README sections

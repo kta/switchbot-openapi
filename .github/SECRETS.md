@@ -111,11 +111,14 @@ GitHub Models API has rate limits (15 requests/minute):
 
 ### Testing Locally
 
-To test the schema generation locally:
+The easiest way to test locally is using GitHub CLI:
 
 ```bash
-# Set your GitHub Personal Access Token
-export GITHUB_TOKEN=ghp_your_token_here
+# Authenticate with GitHub CLI (one-time setup)
+gh auth login
+
+# Test the Copilot integration
+npm run test:copilot
 
 # Run extraction to detect changes
 npm run extract
@@ -124,10 +127,15 @@ npm run extract
 node scripts/update-device.js Bot
 ```
 
-**Getting a GitHub Personal Access Token:**
-1. Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. Generate new token with `repo` scope
-3. Copy the token (starts with `ghp_`)
+**The scripts automatically use your `gh` CLI authentication!**
+
+No need to manually set tokens - if you're logged in with `gh auth login`, the scripts will automatically use your GitHub credentials.
+
+**Alternative: Manual Token (if gh CLI not available):**
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+node scripts/update-device.js Bot
+```
 
 ## Cost
 
