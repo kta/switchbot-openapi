@@ -152,13 +152,13 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 - [x] src/components/schemas/devices/meter-pro.yaml (merged with meter.yaml)
 - [x] src/components/schemas/devices/meter-pro-co2.yaml (merged with meter.yaml)
 - [ ] src/components/schemas/devices/outdoor-meter.yaml
-- [ ] src/components/schemas/devices/motion-sensor.yaml
-- [ ] src/components/schemas/devices/contact-sensor.yaml
+- [x] src/components/schemas/devices/motion-sensor.yaml
+- [x] src/components/schemas/devices/contact-sensor.yaml
 - [ ] src/components/schemas/devices/presence-sensor.yaml
 - [ ] src/components/schemas/devices/water-leak-detector.yaml
 
 **ライト系:**
-- [ ] src/components/schemas/devices/color-bulb.yaml
+- [x] src/components/schemas/devices/color-bulb.yaml
 - [ ] src/components/schemas/devices/strip-light.yaml
 - [ ] src/components/schemas/devices/strip-light-3.yaml
 - [ ] src/components/schemas/devices/ceiling-light.yaml
@@ -211,7 +211,7 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 - [ ] src/components/schemas/devices/video-doorbell.yaml
 
 **その他:**
-- [ ] src/components/schemas/devices/remote.yaml
+- [x] src/components/schemas/devices/remote.yaml
 - [ ] src/components/schemas/devices/garage-door-opener.yaml
 - [ ] src/components/schemas/devices/home-climate-panel.yaml
 - [ ] src/components/schemas/devices/ai-art-frame.yaml

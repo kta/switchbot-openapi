@@ -1,0 +1,95 @@
+schemas:
+  MotionSensorDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Motion Sensor
+            example: "Motion Sensor"
+
+  MotionSensorStatus:
+    type: object
+    description: Motion Sensor device status
+    required:
+      - deviceId
+      - deviceType
+      - moveDetected
+      - brightness
+    properties:
+      deviceId:
+        type: string
+        example: "C8B7F0E6A7D9"
+      deviceType:
+        type: string
+        enum:
+          - Motion Sensor
+        example: "Motion Sensor"
+      moveDetected:
+        type: boolean
+        description: Whether motion is currently detected
+        example: false
+      brightness:
+        type: string
+        description: Ambient brightness level
+        enum:
+          - bright
+          - dim
+        example: "bright"
+      battery:
+        type: integer
+        description: Battery level percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 95
+
+  MotionSensorWebhookEvent:
+    type: object
+    description: Motion Sensor webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - moveDetected
+          - brightness
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Motion Sensor
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "C8B7F0E6A7D9"
+          moveDetected:
+            type: boolean
+          brightness:
+            type: string
+            enum:
+              - bright
+              - dim
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

@@ -1,0 +1,111 @@
+schemas:
+  ContactSensorDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Contact Sensor
+            example: "Contact Sensor"
+
+  ContactSensorStatus:
+    type: object
+    description: Contact Sensor device status
+    required:
+      - deviceId
+      - deviceType
+      - openState
+      - moveDetected
+      - brightness
+    properties:
+      deviceId:
+        type: string
+        example: "D5A1B2C3D4E5"
+      deviceType:
+        type: string
+        enum:
+          - Contact Sensor
+        example: "Contact Sensor"
+      openState:
+        type: string
+        description: Door/window open state
+        enum:
+          - open
+          - close
+          - timeOutNotClose
+        example: "close"
+      moveDetected:
+        type: boolean
+        description: Whether motion is detected
+        example: false
+      brightness:
+        type: string
+        description: Ambient brightness level
+        enum:
+          - bright
+          - dim
+        example: "bright"
+      battery:
+        type: integer
+        description: Battery level percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 90
+
+  ContactSensorWebhookEvent:
+    type: object
+    description: Contact Sensor webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - openState
+          - moveDetected
+          - brightness
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Contact Sensor
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "D5A1B2C3D4E5"
+          openState:
+            type: string
+            enum:
+              - open
+              - close
+              - timeOutNotClose
+          moveDetected:
+            type: boolean
+          brightness:
+            type: string
+            enum:
+              - bright
+              - dim
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

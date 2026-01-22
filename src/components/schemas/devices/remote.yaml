@@ -1,0 +1,38 @@
+schemas:
+  RemoteDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Remote
+            example: "Remote"
+
+  RemoteCommand:
+    type: object
+    description: Remote device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type (always "customize" for Remote)
+        enum:
+          - customize
+        example: "customize"
+      command:
+        type: string
+        description: |
+          Custom button command to execute.
+          The command corresponds to the button configured in the SwitchBot app.
+          Common commands include: turnOn, turnOff, volumeAdd, volumeSub, etc.
+        example: "turnOn"
+      parameter:
+        type: string
+        description: Command parameter (typically "default")
+        enum:
+          - default
+        example: "default"
