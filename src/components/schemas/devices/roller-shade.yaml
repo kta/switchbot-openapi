@@ -1,0 +1,54 @@
+schemas:
+  RollerShadeDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Roller Shade
+            example: "Roller Shade"
+
+  RollerShadeStatus:
+    type: object
+    required:
+      - deviceId
+      - deviceType
+      - slidePosition
+    properties:
+      deviceId:
+        type: string
+      deviceType:
+        type: string
+        enum:
+          - Roller Shade
+      slidePosition:
+        type: integer
+        minimum: 0
+        maximum: 100
+      moving:
+        type: boolean
+      battery:
+        type: integer
+        minimum: 0
+        maximum: 100
+
+  RollerShadeCommand:
+    type: object
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        enum:
+          - command
+      command:
+        type: string
+        enum:
+          - turnOn
+          - turnOff
+          - setPosition
+      parameter:
+        type: string

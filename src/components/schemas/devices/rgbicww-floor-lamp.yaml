@@ -1,0 +1,152 @@
+schemas:
+  RGBICWWFloorLampDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - RGBICWW Floor Lamp
+            example: "RGBICWW Floor Lamp"
+
+  RGBICWWFloorLampStatus:
+    type: object
+    description: RGBICWW Floor Lamp device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+      - brightness
+      - color
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - RGBICWW Floor Lamp
+        example: "RGBICWW Floor Lamp"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      brightness:
+        type: integer
+        description: Brightness level (1-100)
+        minimum: 1
+        maximum: 100
+        example: 75
+      color:
+        type: string
+        description: RGB color in hex format
+        pattern: '^[0-9A-Fa-f]{6}$'
+        example: "FF6347"
+      colorTemperature:
+        type: integer
+        description: Color temperature in Kelvin (2700-6500)
+        minimum: 2700
+        maximum: 6500
+        example: 4000
+
+  RGBICWWFloorLampCommand:
+    type: object
+    description: RGBICWW Floor Lamp device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the floor lamp
+          - turnOff: Turn off the floor lamp
+          - setBrightness: Set brightness level
+          - setColor: Set RGB color
+          - setColorTemperature: Set color temperature
+        enum:
+          - turnOn
+          - turnOff
+          - setBrightness
+          - setColor
+          - setColorTemperature
+        example: "setColor"
+      parameter:
+        oneOf:
+          - type: string
+            description: For turnOn/turnOff
+            enum:
+              - default
+          - type: integer
+            description: For setBrightness (1-100) or setColorTemperature (2700-6500)
+            minimum: 1
+          - type: string
+            description: For setColor (RGB hex)
+            pattern: '^[0-9A-Fa-f]{6}$'
+        example: "FF6347"
+
+  RGBICWWFloorLampWebhookEvent:
+    type: object
+    description: RGBICWW Floor Lamp webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - brightness
+          - color
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - RGBICWW Floor Lamp
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          brightness:
+            type: integer
+            minimum: 1
+            maximum: 100
+          color:
+            type: string
+            pattern: '^[0-9A-Fa-f]{6}$'
+          colorTemperature:
+            type: integer
+            minimum: 2700
+            maximum: 6500
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

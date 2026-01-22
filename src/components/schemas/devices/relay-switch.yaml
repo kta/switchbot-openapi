@@ -1,0 +1,64 @@
+schemas:
+  RelaySwitchDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Relay Switch 1
+              - Relay Switch 1PM
+              - Relay Switch 2PM
+            example: "Relay Switch 1PM"
+
+  RelaySwitchStatus:
+    type: object
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+      deviceType:
+        type: string
+        enum:
+          - Relay Switch 1
+          - Relay Switch 1PM
+          - Relay Switch 2PM
+      power:
+        type: string
+        enum:
+          - "on"
+          - "off"
+      voltage:
+        type: number
+        description: Current voltage (PM models only)
+      weight:
+        type: number
+        description: Power consumption in W (PM models only)
+      electricCurrent:
+        type: number
+        description: Current in A (PM models only)
+
+  RelaySwitchCommand:
+    type: object
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        enum:
+          - command
+      command:
+        type: string
+        enum:
+          - turnOn
+          - turnOff
+          - toggle
+      parameter:
+        type: string
+        enum:
+          - default

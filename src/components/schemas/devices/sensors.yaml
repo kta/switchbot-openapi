@@ -1,0 +1,55 @@
+schemas:
+  OutdoorMeterDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum: [Outdoor Meter]
+
+  OutdoorMeterStatus:
+    type: object
+    required: [deviceId, deviceType, temperature, humidity]
+    properties:
+      deviceId: {type: string}
+      deviceType: {type: string, enum: [Outdoor Meter]}
+      temperature: {type: number}
+      humidity: {type: integer, minimum: 0, maximum: 100}
+      battery: {type: integer, minimum: 0, maximum: 100}
+
+  PresenceSensorDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum: [Presence Sensor]
+
+  PresenceSensorStatus:
+    type: object
+    required: [deviceId, deviceType, presenceDetected]
+    properties:
+      deviceId: {type: string}
+      deviceType: {type: string, enum: [Presence Sensor]}
+      presenceDetected: {type: boolean}
+      battery: {type: integer, minimum: 0, maximum: 100}
+
+  WaterLeakDetectorDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum: [Water Leak Detector]
+
+  WaterLeakDetectorStatus:
+    type: object
+    required: [deviceId, deviceType, leakDetected]
+    properties:
+      deviceId: {type: string}
+      deviceType: {type: string, enum: [Water Leak Detector]}
+      leakDetected: {type: boolean}
+      battery: {type: integer, minimum: 0, maximum: 100}

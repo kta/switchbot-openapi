@@ -62,6 +62,105 @@
       "hasStatus": true,
       "hasCommands": false,
       "hasWebhook": false
+    },
+    {
+      "deviceType": "Color Bulb",
+      "displayName": "Color Bulb",
+      "yamlFile": "src/components/schemas/devices/color-bulb.yaml",
+      "readmeHeaders": ["Color Bulb"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Strip Light",
+      "displayName": "Strip Light",
+      "yamlFile": "src/components/schemas/devices/strip-light.yaml",
+      "readmeHeaders": ["Strip Light"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Strip Light 3",
+      "displayName": "Strip Light 3",
+      "yamlFile": "src/components/schemas/devices/strip-light.yaml",
+      "readmeHeaders": ["Strip Light 3"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Ceiling Light",
+      "displayName": "Ceiling Light",
+      "yamlFile": "src/components/schemas/devices/ceiling-light.yaml",
+      "readmeHeaders": ["Ceiling Light"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Ceiling Light Pro",
+      "displayName": "Ceiling Light Pro",
+      "yamlFile": "src/components/schemas/devices/ceiling-light.yaml",
+      "readmeHeaders": ["Ceiling Light Pro"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Floor Lamp",
+      "displayName": "Floor Lamp",
+      "yamlFile": "src/components/schemas/devices/floor-lamp.yaml",
+      "readmeHeaders": ["Floor Lamp"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "RGBICWW Strip Light",
+      "displayName": "RGBICWW Strip Light",
+      "yamlFile": "src/components/schemas/devices/rgbicww-strip-light.yaml",
+      "readmeHeaders": ["RGBICWW Strip Light"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "RGBICWW Floor Lamp",
+      "displayName": "RGBICWW Floor Lamp",
+      "yamlFile": "src/components/schemas/devices/rgbicww-floor-lamp.yaml",
+      "readmeHeaders": ["RGBICWW Floor Lamp"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "RGBIC Neon Wire Rope Light",
+      "displayName": "RGBIC Neon Wire Rope Light",
+      "yamlFile": "src/components/schemas/devices/rgbic-neon-wire.yaml",
+      "readmeHeaders": ["RGBIC Neon Wire Rope Light"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "RGBIC Neon Rope Light",
+      "displayName": "RGBIC Neon Rope Light",
+      "yamlFile": "src/components/schemas/devices/rgbic-neon-rope.yaml",
+      "readmeHeaders": ["RGBIC Neon Rope Light"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Candle Warmer Lamp",
+      "displayName": "Candle Warmer Lamp",
+      "yamlFile": "src/components/schemas/devices/candle-warmer-lamp.yaml",
+      "readmeHeaders": ["Candle Warmer Lamp"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
     }
   ],
   "readme": {

@@ -159,16 +159,14 @@ OpenAPI 3.1.0を使用する（@redocly/cliでサポート）
 
 **ライト系:**
 - [x] src/components/schemas/devices/color-bulb.yaml
-- [ ] src/components/schemas/devices/strip-light.yaml
-- [ ] src/components/schemas/devices/strip-light-3.yaml
-- [ ] src/components/schemas/devices/ceiling-light.yaml
-- [ ] src/components/schemas/devices/ceiling-light-pro.yaml
-- [ ] src/components/schemas/devices/floor-lamp.yaml
-- [ ] src/components/schemas/devices/rgbicww-strip-light.yaml
-- [ ] src/components/schemas/devices/rgbicww-floor-lamp.yaml
-- [ ] src/components/schemas/devices/rgbic-neon-wire.yaml
-- [ ] src/components/schemas/devices/rgbic-neon-rope.yaml
-- [ ] src/components/schemas/devices/candle-warmer-lamp.yaml
+- [x] src/components/schemas/devices/strip-light.yaml (includes Strip Light 3)
+- [x] src/components/schemas/devices/ceiling-light.yaml (includes Ceiling Light Pro)
+- [x] src/components/schemas/devices/floor-lamp.yaml
+- [x] src/components/schemas/devices/rgbicww-strip-light.yaml
+- [x] src/components/schemas/devices/rgbicww-floor-lamp.yaml
+- [x] src/components/schemas/devices/rgbic-neon-wire.yaml
+- [x] src/components/schemas/devices/rgbic-neon-rope.yaml
+- [x] src/components/schemas/devices/candle-warmer-lamp.yaml
 
 **ハブ系:**
 - [x] src/components/schemas/devices/hub.yaml（Hub/Hub Plus/Hub Mini/Hub 2）

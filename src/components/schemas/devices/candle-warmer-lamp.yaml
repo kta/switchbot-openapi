@@ -1,0 +1,126 @@
+schemas:
+  CandleWarmerLampDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Candle Warmer Lamp
+            example: "Candle Warmer Lamp"
+
+  CandleWarmerLampStatus:
+    type: object
+    description: Candle Warmer Lamp device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+      - brightness
+    properties:
+      deviceId:
+        type: string
+        example: "A1B2C3D4E5F6"
+      deviceType:
+        type: string
+        enum:
+          - Candle Warmer Lamp
+        example: "Candle Warmer Lamp"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      brightness:
+        type: integer
+        description: Brightness level (1-100)
+        minimum: 1
+        maximum: 100
+        example: 75
+
+  CandleWarmerLampCommand:
+    type: object
+    description: Candle Warmer Lamp device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the lamp
+          - turnOff: Turn off the lamp
+          - setBrightness: Set brightness level
+        enum:
+          - turnOn
+          - turnOff
+          - setBrightness
+        example: "setBrightness"
+      parameter:
+        oneOf:
+          - type: string
+            description: For turnOn/turnOff
+            enum:
+              - default
+          - type: integer
+            description: For setBrightness (1-100)
+            minimum: 1
+            maximum: 100
+        example: 75
+
+  CandleWarmerLampWebhookEvent:
+    type: object
+    description: Candle Warmer Lamp webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - brightness
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Candle Warmer Lamp
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "A1B2C3D4E5F6"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          brightness:
+            type: integer
+            minimum: 1
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

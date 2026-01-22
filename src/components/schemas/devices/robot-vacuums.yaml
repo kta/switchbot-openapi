@@ -1,0 +1,49 @@
+schemas:
+  RobotVacuumS1Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Robot Vacuum Cleaner S1]}
+
+  RobotVacuumS1PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Robot Vacuum Cleaner S1 Plus]}
+
+  RobotVacuumK10PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [K10+ Pro, K10+ Pro Combo]}
+
+  RobotVacuumK11PlusDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [K11+]}
+
+  RobotVacuumK20PlusProDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [K20+ Pro]}
+
+  FloorCleaningS10Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Floor Cleaning S10]}
+
+  FloorCleaningS20Device:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Floor Cleaning S20]}

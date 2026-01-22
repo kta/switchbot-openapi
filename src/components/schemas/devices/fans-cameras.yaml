@@ -1,0 +1,42 @@
+schemas:
+  BatteryCirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Battery Circulator Fan]}
+
+  CirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Circulator Fan]}
+
+  StandingCirculatorFanDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Standing Circulator Fan]}
+
+  IndoorCamDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Indoor Cam]}
+
+  PanTiltCamDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Pan/Tilt Cam, Pan/Tilt Cam 2K, Pan/Tilt Cam Plus 2K, Pan/Tilt Cam Plus 3K]}
+
+  VideoDoorbellDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType: {type: string, enum: [Video Doorbell]}

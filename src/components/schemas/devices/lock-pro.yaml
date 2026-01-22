@@ -1,0 +1,64 @@
+schemas:
+  LockProDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Smart Lock Pro
+            example: "Smart Lock Pro"
+
+  LockProStatus:
+    type: object
+    required:
+      - deviceId
+      - deviceType
+      - lockState
+      - doorState
+    properties:
+      deviceId:
+        type: string
+      deviceType:
+        type: string
+        enum:
+          - Smart Lock Pro
+      lockState:
+        type: string
+        enum:
+          - locked
+          - unlocked
+          - jammed
+      doorState:
+        type: string
+        enum:
+          - closed
+          - opened
+          - unknown
+      calibrate:
+        type: boolean
+      battery:
+        type: integer
+        minimum: 0
+        maximum: 100
+
+  LockProCommand:
+    type: object
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        enum:
+          - command
+      command:
+        type: string
+        enum:
+          - lock
+          - unlock
+      parameter:
+        type: string
+        enum:
+          - default

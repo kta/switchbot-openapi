@@ -1,0 +1,59 @@
+schemas:
+  BlindTiltDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Blind Tilt
+            example: "Blind Tilt"
+
+  BlindTiltStatus:
+    type: object
+    required:
+      - deviceId
+      - deviceType
+      - direction
+      - slidePosition
+    properties:
+      deviceId:
+        type: string
+      deviceType:
+        type: string
+        enum:
+          - Blind Tilt
+      direction:
+        type: string
+        enum:
+          - up
+          - down
+      slidePosition:
+        type: integer
+        minimum: 0
+        maximum: 100
+      battery:
+        type: integer
+        minimum: 0
+        maximum: 100
+
+  BlindTiltCommand:
+    type: object
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        enum:
+          - command
+      command:
+        type: string
+        enum:
+          - turnOn
+          - turnOff
+          - setPosition
+      parameter:
+        type: string
+        description: For setPosition, use "0,ff,<position>" format

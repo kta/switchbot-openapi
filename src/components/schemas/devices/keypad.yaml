@@ -1,0 +1,30 @@
+schemas:
+  KeypadDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Keypad
+              - Keypad Touch
+            example: "Keypad"
+
+  KeypadStatus:
+    type: object
+    required:
+      - deviceId
+      - deviceType
+    properties:
+      deviceId:
+        type: string
+      deviceType:
+        type: string
+        enum:
+          - Keypad
+          - Keypad Touch
+      battery:
+        type: integer
+        minimum: 0
+        maximum: 100
