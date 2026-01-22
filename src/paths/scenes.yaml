@@ -1,0 +1,89 @@
+scenes:
+  get:
+    tags:
+      - Scenes
+    summary: Get scene list
+    description: |
+      Retrieve a list of all manual scenes created in your SwitchBot account.
+
+      Manual scenes are user-defined automation sequences that can be triggered
+      via the API or the SwitchBot app.
+    operationId: getScenes
+    responses:
+      '200':
+        description: Scene list retrieved successfully
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+                - type: object
+                  properties:
+                    body:
+                      type: array
+                      description: Array of scene objects
+                      items:
+                        type: object
+                        required:
+                          - sceneId
+                          - sceneName
+                        properties:
+                          sceneId:
+                            type: string
+                            description: Unique scene identifier
+                            example: "T02-202110151446-12345678"
+                          sceneName:
+                            type: string
+                            description: User-defined scene name
+                            example: "Good Morning"
+            examples:
+              success:
+                value:
+                  statusCode: 100
+                  message: "success"
+                  body:
+                    - sceneId: "T02-202110151446-12345678"
+                      sceneName: "Good Morning"
+                    - sceneId: "T02-202110151447-87654321"
+                      sceneName: "Leave Home"
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'
+
+scenes-execute:
+  post:
+    tags:
+      - Scenes
+    summary: Execute scene
+    description: |
+      Execute a manual scene by its sceneId.
+
+      This triggers all actions defined in the scene, such as turning on/off
+      devices, adjusting settings, etc.
+    operationId: executeScene
+    parameters:
+      - $ref: '../components/parameters.yaml#/parameters/sceneId'
+    responses:
+      '200':
+        description: Scene executed successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+            examples:
+              success:
+                value:
+                  statusCode: 100
+                  message: "success"
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '400':
+        $ref: '../components/responses.yaml#/responses/BadRequest'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'

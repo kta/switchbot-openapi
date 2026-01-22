@@ -1,0 +1,73 @@
+openapi: 3.1.0
+
+info:
+  title: SwitchBot API
+  description: |
+    Official OpenAPI specification for SwitchBot API v1.1
+
+    This specification is automatically synchronized with the official SwitchBot README documentation.
+
+    For the latest official documentation, visit: https://github.com/OpenWonderLabs/SwitchBotAPI
+  version: 1.1.0
+  contact:
+    name: SwitchBot API Support
+    url: https://github.com/OpenWonderLabs/SwitchBotAPI
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.switch-bot.com/v1.1
+    description: Production API Server
+
+security:
+  - SwitchBotAuth: []
+
+tags:
+  - name: Devices
+    description: Device management and control
+  - name: Scenes
+    description: Scene management and execution
+  - name: Webhook
+    description: Webhook configuration and management
+
+paths:
+  /devices:
+    $ref: './paths/devices.yaml#/devices'
+
+  /devices/{deviceId}/status:
+    $ref: './paths/devices-status.yaml#/devices-status'
+
+  /devices/{deviceId}/commands:
+    $ref: './paths/devices-commands.yaml#/devices-commands'
+
+  /scenes:
+    $ref: './paths/scenes.yaml#/scenes'
+
+  /scenes/{sceneId}/execute:
+    $ref: './paths/scenes.yaml#/scenes-execute'
+
+  /webhook/setupWebhook:
+    $ref: './paths/webhook.yaml#/setup-webhook'
+
+  /webhook/queryWebhook:
+    $ref: './paths/webhook.yaml#/query-webhook'
+
+  /webhook/updateWebhook:
+    $ref: './paths/webhook.yaml#/update-webhook'
+
+  /webhook/deleteWebhook:
+    $ref: './paths/webhook.yaml#/delete-webhook'
+
+components:
+  securitySchemes:
+    $ref: './components/securitySchemes.yaml#/securitySchemes'
+
+  parameters:
+    $ref: './components/parameters.yaml#/parameters'
+
+  responses:
+    $ref: './components/responses.yaml#/responses'
+
+  schemas:
+    $ref: './components/schemas/common.yaml#/schemas'

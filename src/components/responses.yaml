@@ -1,0 +1,59 @@
+responses:
+  Success:
+    description: Request successful
+    content:
+      application/json:
+        schema:
+          $ref: './schemas/common.yaml#/schemas/BaseResponse'
+
+  Unauthorized:
+    description: Authentication failed
+    content:
+      application/json:
+        schema:
+          $ref: './schemas/common.yaml#/schemas/ErrorResponse'
+        examples:
+          invalidToken:
+            value:
+              statusCode: 190
+              message: "Unauthorized"
+          signatureError:
+            value:
+              statusCode: 100
+              message: "Signature verification failed"
+
+  BadRequest:
+    description: Invalid request parameters
+    content:
+      application/json:
+        schema:
+          $ref: './schemas/common.yaml#/schemas/ErrorResponse'
+        examples:
+          invalidParameter:
+            value:
+              statusCode: 151
+              message: "Device not found"
+
+  RateLimitExceeded:
+    description: Request rate limit exceeded
+    content:
+      application/json:
+        schema:
+          $ref: './schemas/common.yaml#/schemas/ErrorResponse'
+        examples:
+          tooManyRequests:
+            value:
+              statusCode: 169
+              message: "Too many requests"
+
+  InternalServerError:
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          $ref: './schemas/common.yaml#/schemas/ErrorResponse'
+        examples:
+          serverError:
+            value:
+              statusCode: 171
+              message: "System error"

@@ -1,0 +1,29 @@
+parameters:
+  deviceId:
+    name: deviceId
+    in: path
+    required: true
+    description: Unique device identifier obtained from GET /devices
+    schema:
+      type: string
+      example: "C271111EC0AB"
+    examples:
+      bot:
+        value: "210"
+        summary: Bot device ID
+      curtain:
+        value: "E2F6032048AB"
+        summary: Curtain device ID
+
+  sceneId:
+    name: sceneId
+    in: path
+    required: true
+    description: Unique scene identifier obtained from GET /scenes
+    schema:
+      type: string
+      example: "T02-20200804130110"
+    examples:
+      manual:
+        value: "T02-202110151446-12345678"
+        summary: Manual scene ID

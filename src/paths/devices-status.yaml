@@ -1,0 +1,62 @@
+devices-status:
+  get:
+    tags:
+      - Devices
+    summary: Get device status
+    description: |
+      Retrieve the current status of a specific device.
+
+      The status response structure varies significantly by device type.
+      Each device type returns different properties in the body.
+
+      **Note:** Some devices may not support status retrieval.
+    operationId: getDeviceStatus
+    parameters:
+      - $ref: '../components/parameters.yaml#/parameters/deviceId'
+    responses:
+      '200':
+        description: Device status retrieved successfully
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+                - type: object
+                  properties:
+                    body:
+                      type: object
+                      description: Status data (structure varies by device type)
+            examples:
+              bot:
+                value:
+                  statusCode: 100
+                  message: "success"
+                  body:
+                    deviceId: "210"
+                    deviceType: "Bot"
+                    power: "on"
+                    battery: 100
+              humidifier:
+                value:
+                  statusCode: 100
+                  message: "success"
+                  body:
+                    deviceId: "500291B269BE"
+                    deviceType: "Humidifier"
+                    power: "on"
+                    humidity: 52
+                    temperature: 26.2
+                    nebulizationEfficiency: 100
+                    auto: true
+                    childLock: false
+                    sound: true
+                    lackWater: false
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '400':
+        $ref: '../components/responses.yaml#/responses/BadRequest'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'

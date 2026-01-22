@@ -1,0 +1,38 @@
+securitySchemes:
+  SwitchBotAuth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: |
+      SwitchBot API authentication requires four headers:
+
+      1. **Authorization**: Your access token
+      2. **sign**: HMAC-SHA256 signature computed from (token + t + nonce)
+      3. **t**: Current timestamp in milliseconds (13-digit Unix timestamp)
+      4. **nonce**: Random UUID for replay attack prevention
+
+      Example signature calculation (pseudo-code):
+      ```
+      const stringToSign = token + t + nonce
+      const sign = HMAC_SHA256(secret, stringToSign).toBase64()
+      ```
+
+      All four headers must be included in every request.
+
+  SignatureHeader:
+    type: apiKey
+    in: header
+    name: sign
+    description: HMAC-SHA256 signature of (token + t + nonce) using your client secret
+
+  TimestampHeader:
+    type: apiKey
+    in: header
+    name: t
+    description: Current Unix timestamp in milliseconds (13 digits)
+
+  NonceHeader:
+    type: apiKey
+    in: header
+    name: nonce
+    description: Random UUID to prevent replay attacks

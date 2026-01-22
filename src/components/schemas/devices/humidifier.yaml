@@ -1,0 +1,171 @@
+schemas:
+  HumidifierDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Humidifier
+            example: "Humidifier"
+
+  HumidifierStatus:
+    type: object
+    description: Humidifier device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+      - humidity
+      - temperature
+    properties:
+      deviceId:
+        type: string
+        example: "500291B269BE"
+      deviceType:
+        type: string
+        enum:
+          - Humidifier
+        example: "Humidifier"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      humidity:
+        type: integer
+        description: Current humidity percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 52
+      temperature:
+        type: number
+        description: Current temperature in Celsius
+        example: 26.2
+      nebulizationEfficiency:
+        type: integer
+        description: Nebulization efficiency percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 100
+      auto:
+        type: boolean
+        description: Auto mode enabled
+        example: true
+      childLock:
+        type: boolean
+        description: Child lock enabled
+        example: false
+      sound:
+        type: boolean
+        description: Sound/buzzer enabled
+        example: true
+      lackWater:
+        type: boolean
+        description: Water tank is empty
+        example: false
+
+  HumidifierCommand:
+    type: object
+    description: Humidifier device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the humidifier
+          - turnOff: Turn off the humidifier
+          - setMode: Set operation mode (auto, low, medium, high)
+        enum:
+          - turnOn
+          - turnOff
+          - setMode
+        example: "setMode"
+      parameter:
+        oneOf:
+          - type: string
+            enum:
+              - default
+              - auto
+              - low
+              - medium
+              - high
+        description: |
+          Command parameter:
+          - For turnOn/turnOff: "default"
+          - For setMode: "auto", "low", "medium", or "high"
+        example: "auto"
+
+  HumidifierWebhookEvent:
+    type: object
+    description: Humidifier webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - humidity
+          - temperature
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Humidifier
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "500291B269BE"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          humidity:
+            type: integer
+            minimum: 0
+            maximum: 100
+          temperature:
+            type: number
+          nebulizationEfficiency:
+            type: integer
+            minimum: 0
+            maximum: 100
+          auto:
+            type: boolean
+          childLock:
+            type: boolean
+          sound:
+            type: boolean
+          lackWater:
+            type: boolean
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

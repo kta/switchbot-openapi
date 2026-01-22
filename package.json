@@ -1,0 +1,26 @@
+{
+  "name": "switchbot-openapi",
+  "version": "1.0.0",
+  "description": "Auto-updating OpenAPI specification for SwitchBot API",
+  "main": "openapi.yaml",
+  "type": "module",
+  "scripts": {
+    "bundle": "redocly bundle src/main.yaml -o openapi.yaml",
+    "validate": "redocly lint openapi.yaml",
+    "build": "npm run bundle && npm run validate",
+    "extract": "node scripts/extract-sections.js",
+    "test:copilot": "node scripts/test-copilot.js"
+  },
+  "keywords": [
+    "switchbot",
+    "openapi",
+    "api",
+    "smart-home"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@redocly/cli": "^1.10.0",
+    "yaml": "^2.3.4"
+  }
+}

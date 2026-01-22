@@ -1,0 +1,58 @@
+schemas:
+  HubDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Hub
+              - Hub Plus
+              - Hub Mini
+              - Hub 2
+            example: "Hub Mini"
+
+  HubStatus:
+    type: object
+    description: Hub device status
+    required:
+      - deviceId
+      - deviceType
+      - hubDeviceId
+    properties:
+      deviceId:
+        type: string
+        example: "FA7310762361"
+      deviceType:
+        type: string
+        enum:
+          - Hub
+          - Hub Plus
+          - Hub Mini
+          - Hub 2
+        example: "Hub Mini"
+      hubDeviceId:
+        type: string
+        description: Hub device ID (same as deviceId for Hub devices)
+        example: "FA7310762361"
+      temperature:
+        type: number
+        description: Temperature in Celsius (Hub 2 and Hub Plus only)
+        example: 22.5
+      humidity:
+        type: integer
+        description: Humidity percentage (Hub 2 and Hub Plus only)
+        minimum: 0
+        maximum: 100
+        example: 50
+      lightLevel:
+        type: integer
+        description: Light level (Hub 2 only, 1-20)
+        minimum: 1
+        maximum: 20
+        example: 10
+      version:
+        type: integer
+        description: Firmware version
+        example: 3

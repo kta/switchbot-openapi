@@ -1,0 +1,102 @@
+devices-commands:
+  post:
+    tags:
+      - Devices
+    summary: Send device command
+    description: |
+      Send a control command to a specific device.
+
+      The command structure varies by device type. Each device supports
+      different commandType values and parameters.
+
+      **Note:** Some devices may not support command execution via API.
+      Virtual infrared devices use "command" while physical devices use
+      "commandType".
+    operationId: sendDeviceCommand
+    parameters:
+      - $ref: '../components/parameters.yaml#/parameters/deviceId'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Command request structure varies by device type
+            properties:
+              commandType:
+                type: string
+                description: |
+                  Command type for physical devices (e.g., "command", "customize").
+                  Use "command" for virtual IR devices.
+                example: "command"
+              command:
+                type: string
+                description: Specific command to execute (varies by device type)
+                example: "turnOn"
+              parameter:
+                oneOf:
+                  - type: string
+                  - type: integer
+                  - type: object
+                description: Command parameters (optional, varies by command)
+                example: "default"
+            required:
+              - command
+          examples:
+            botOn:
+              summary: Turn on Bot
+              value:
+                commandType: "command"
+                command: "turnOn"
+                parameter: "default"
+            humidifierMode:
+              summary: Set humidifier to auto mode
+              value:
+                commandType: "command"
+                command: "setMode"
+                parameter: "auto"
+            curtainPosition:
+              summary: Set curtain position to 50%
+              value:
+                commandType: "command"
+                command: "setPosition"
+                parameter: "0,ff,50"
+            irAcPowerOn:
+              summary: Turn on IR air conditioner
+              value:
+                command: "turnOn"
+
+    responses:
+      '200':
+        description: Command sent successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+            examples:
+              success:
+                value:
+                  statusCode: 100
+                  message: "success"
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '400':
+        description: Invalid command or device offline
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/ErrorResponse'
+            examples:
+              deviceOffline:
+                value:
+                  statusCode: 161
+                  message: "Device offline"
+              commandNotSupported:
+                value:
+                  statusCode: 160
+                  message: "Command not supported"
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'

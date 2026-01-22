@@ -1,0 +1,117 @@
+schemas:
+  MeterDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Meter
+              - MeterPlus
+              - Meter Pro
+              - Meter Pro (CO2)
+              - WoIOSensor
+            example: "Meter"
+
+  MeterStatus:
+    type: object
+    description: Meter/Sensor device status
+    required:
+      - deviceId
+      - deviceType
+      - temperature
+      - humidity
+    properties:
+      deviceId:
+        type: string
+        example: "C271111EC0AB"
+      deviceType:
+        type: string
+        enum:
+          - Meter
+          - MeterPlus
+          - Meter Pro
+          - Meter Pro (CO2)
+          - WoIOSensor
+        example: "Meter"
+      temperature:
+        type: number
+        description: Temperature in Celsius
+        example: 23.5
+      humidity:
+        type: integer
+        description: Humidity percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 45
+      battery:
+        type: integer
+        description: Battery level percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 95
+      version:
+        type: integer
+        description: Firmware version
+        example: 2
+      CO2:
+        type: integer
+        description: CO2 level in ppm (Meter Pro CO2 only)
+        minimum: 0
+        example: 450
+
+  MeterWebhookEvent:
+    type: object
+    description: Meter webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - temperature
+          - humidity
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Meter
+              - MeterPlus
+              - Meter Pro
+              - Meter Pro (CO2)
+              - WoIOSensor
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "C271111EC0AB"
+          temperature:
+            type: number
+          humidity:
+            type: integer
+            minimum: 0
+            maximum: 100
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          CO2:
+            type: integer
+            minimum: 0
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

@@ -1,0 +1,71 @@
+schemas:
+  BotDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Bot
+            example: "Bot"
+
+  BotStatus:
+    type: object
+    description: Bot device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+        example: "210"
+      deviceType:
+        type: string
+        enum:
+          - Bot
+        example: "Bot"
+      power:
+        type: string
+        description: Device power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      battery:
+        type: integer
+        description: Battery level percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 100
+
+  BotCommand:
+    type: object
+    description: Bot device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Trigger the Bot (press)
+          - turnOff: Trigger the Bot (retract)
+        enum:
+          - turnOn
+          - turnOff
+        example: "turnOn"
+      parameter:
+        type: string
+        description: Command parameter (typically "default")
+        enum:
+          - default
+        example: "default"

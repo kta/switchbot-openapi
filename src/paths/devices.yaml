@@ -1,0 +1,61 @@
+devices:
+  get:
+    tags:
+      - Devices
+    summary: Get device list
+    description: |
+      Retrieve a list of all devices associated with your SwitchBot account.
+
+      The response includes physical devices, virtual infrared remote devices,
+      and manually created scenes.
+
+      **Note:** The response structure varies by device type. Each device type
+      has specific properties in the response body.
+    operationId: getDevices
+    responses:
+      '200':
+        description: Device list retrieved successfully
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+                - type: object
+                  properties:
+                    body:
+                      type: object
+                      properties:
+                        deviceList:
+                          type: array
+                          description: Array of physical devices
+                          items:
+                            $ref: '../components/schemas/common.yaml#/schemas/DeviceBase'
+                        infraredRemoteList:
+                          type: array
+                          description: Array of virtual infrared remote devices
+                          items:
+                            $ref: '../components/schemas/common.yaml#/schemas/DeviceBase'
+            examples:
+              success:
+                value:
+                  statusCode: 100
+                  message: "success"
+                  body:
+                    deviceList:
+                      - deviceId: "500291B269BE"
+                        deviceName: "Living Room Humidifier"
+                        deviceType: "Humidifier"
+                        hubDeviceId: "000000000000"
+                        enableCloudService: true
+                    infraredRemoteList:
+                      - deviceId: "02-202008110034-13"
+                        deviceName: "Living Room Air Conditioner"
+                        deviceType: "Air Conditioner"
+                        hubDeviceId: "FA7310762361"
+                        enableCloudService: false
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'

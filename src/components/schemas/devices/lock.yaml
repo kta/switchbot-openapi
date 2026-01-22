@@ -1,0 +1,141 @@
+schemas:
+  LockDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Smart Lock
+            example: "Smart Lock"
+
+  LockStatus:
+    type: object
+    description: Smart Lock device status
+    required:
+      - deviceId
+      - deviceType
+      - lockState
+      - doorState
+    properties:
+      deviceId:
+        type: string
+        example: "E217643216B6"
+      deviceType:
+        type: string
+        enum:
+          - Smart Lock
+        example: "Smart Lock"
+      lockState:
+        type: string
+        description: Current lock state
+        enum:
+          - locked
+          - unlocked
+          - jammed
+        example: "locked"
+      doorState:
+        type: string
+        description: Current door state
+        enum:
+          - closed
+          - opened
+          - unknown
+        example: "closed"
+      calibrate:
+        type: boolean
+        description: Whether the lock is calibrated
+        example: true
+      battery:
+        type: integer
+        description: Battery level percentage (0-100)
+        minimum: 0
+        maximum: 100
+        example: 85
+
+  LockCommand:
+    type: object
+    description: Smart Lock device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - lock: Lock the door
+          - unlock: Unlock the door
+        enum:
+          - lock
+          - unlock
+        example: "lock"
+      parameter:
+        type: string
+        description: Command parameter (typically "default")
+        enum:
+          - default
+        example: "default"
+
+  LockWebhookEvent:
+    type: object
+    description: Smart Lock webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - lockState
+          - doorState
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Smart Lock
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "E217643216B6"
+          lockState:
+            type: string
+            enum:
+              - locked
+              - unlocked
+              - jammed
+          doorState:
+            type: string
+            enum:
+              - closed
+              - opened
+              - unknown
+          calibrate:
+            type: boolean
+          battery:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789

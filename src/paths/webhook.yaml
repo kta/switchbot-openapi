@@ -1,0 +1,232 @@
+setup-webhook:
+  post:
+    tags:
+      - Webhook
+    summary: Setup webhook
+    description: |
+      Configure a webhook URL to receive device status change notifications.
+
+      When configured, SwitchBot will send POST requests to your webhook URL
+      whenever a device's status changes.
+    operationId: setupWebhook
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+              - url
+            properties:
+              action:
+                type: string
+                description: Action type (always "setupWebhook")
+                enum:
+                  - setupWebhook
+                example: "setupWebhook"
+              url:
+                type: string
+                format: uri
+                description: Your webhook endpoint URL (must be HTTPS)
+                example: "https://example.com/webhook"
+              deviceList:
+                type: string
+                description: |
+                  Comma-separated list of device IDs to monitor.
+                  Use "ALL" to monitor all devices.
+                example: "ALL"
+          examples:
+            allDevices:
+              summary: Setup webhook for all devices
+              value:
+                action: "setupWebhook"
+                url: "https://example.com/webhook"
+                deviceList: "ALL"
+            specificDevices:
+              summary: Setup webhook for specific devices
+              value:
+                action: "setupWebhook"
+                url: "https://example.com/webhook"
+                deviceList: "C271111EC0AB,E2F6032048AB"
+
+    responses:
+      '200':
+        description: Webhook configured successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'
+
+query-webhook:
+  post:
+    tags:
+      - Webhook
+    summary: Query webhook configuration
+    description: Retrieve the current webhook configuration
+    operationId: queryWebhook
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+            properties:
+              action:
+                type: string
+                description: Action type (always "queryWebhook")
+                enum:
+                  - queryWebhook
+                example: "queryWebhook"
+          examples:
+            query:
+              value:
+                action: "queryWebhook"
+
+    responses:
+      '200':
+        description: Webhook configuration retrieved successfully
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+                - type: object
+                  properties:
+                    body:
+                      type: object
+                      properties:
+                        urls:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              url:
+                                type: string
+                                format: uri
+                              createTime:
+                                type: integer
+                                description: Unix timestamp (milliseconds)
+                              lastUpdateTime:
+                                type: integer
+                                description: Unix timestamp (milliseconds)
+                              deviceList:
+                                type: string
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'
+
+update-webhook:
+  post:
+    tags:
+      - Webhook
+    summary: Update webhook configuration
+    description: Modify the existing webhook URL or device list
+    operationId: updateWebhook
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+              - config
+            properties:
+              action:
+                type: string
+                description: Action type (always "updateWebhook")
+                enum:
+                  - updateWebhook
+                example: "updateWebhook"
+              config:
+                type: object
+                required:
+                  - url
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: New webhook URL
+                  deviceList:
+                    type: string
+                    description: Updated device list
+          examples:
+            update:
+              value:
+                action: "updateWebhook"
+                config:
+                  url: "https://example.com/new-webhook"
+                  deviceList: "ALL"
+
+    responses:
+      '200':
+        description: Webhook updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'
+
+delete-webhook:
+  post:
+    tags:
+      - Webhook
+    summary: Delete webhook
+    description: Remove the configured webhook
+    operationId: deleteWebhook
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+              - url
+            properties:
+              action:
+                type: string
+                description: Action type (always "deleteWebhook")
+                enum:
+                  - deleteWebhook
+                example: "deleteWebhook"
+              url:
+                type: string
+                format: uri
+                description: Webhook URL to delete
+          examples:
+            delete:
+              value:
+                action: "deleteWebhook"
+                url: "https://example.com/webhook"
+
+    responses:
+      '200':
+        description: Webhook deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/schemas/BaseResponse'
+
+      '401':
+        $ref: '../components/responses.yaml#/responses/Unauthorized'
+
+      '500':
+        $ref: '../components/responses.yaml#/responses/InternalServerError'

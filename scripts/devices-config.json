@@ -1,0 +1,70 @@
+{
+  "devices": [
+    {
+      "deviceType": "Bot",
+      "displayName": "Bot",
+      "yamlFile": "src/components/schemas/devices/bot.yaml",
+      "readmeHeaders": ["Bot"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Plug",
+      "displayName": "Plug",
+      "yamlFile": "src/components/schemas/devices/plug.yaml",
+      "readmeHeaders": ["Plug"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Curtain",
+      "displayName": "Curtain",
+      "yamlFile": "src/components/schemas/devices/curtain.yaml",
+      "readmeHeaders": ["Curtain", "Curtain3"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Humidifier",
+      "displayName": "Humidifier",
+      "yamlFile": "src/components/schemas/devices/humidifier.yaml",
+      "readmeHeaders": ["Humidifier"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Smart Lock",
+      "displayName": "Smart Lock",
+      "yamlFile": "src/components/schemas/devices/lock.yaml",
+      "readmeHeaders": ["Smart Lock"],
+      "hasStatus": true,
+      "hasCommands": true,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Meter",
+      "displayName": "Meter",
+      "yamlFile": "src/components/schemas/devices/meter.yaml",
+      "readmeHeaders": ["Meter", "Meter Plus"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": true
+    },
+    {
+      "deviceType": "Hub",
+      "displayName": "Hub",
+      "yamlFile": "src/components/schemas/devices/hub.yaml",
+      "readmeHeaders": ["Hub Mini", "Hub Plus", "Hub 2"],
+      "hasStatus": true,
+      "hasCommands": false,
+      "hasWebhook": false
+    }
+  ],
+  "readme": {
+    "url": "https://raw.githubusercontent.com/OpenWonderLabs/SwitchBotAPI/main/README.md"
+  }
+}

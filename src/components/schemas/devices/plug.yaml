@@ -1,0 +1,133 @@
+schemas:
+  PlugDevice:
+    allOf:
+      - $ref: '../common.yaml#/schemas/DeviceBase'
+      - type: object
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Plug
+              - Plug Mini (US)
+              - Plug Mini (JP)
+            example: "Plug"
+
+  PlugStatus:
+    type: object
+    description: Plug device status
+    required:
+      - deviceId
+      - deviceType
+      - power
+    properties:
+      deviceId:
+        type: string
+        example: "84F70353A4D0"
+      deviceType:
+        type: string
+        enum:
+          - Plug
+          - Plug Mini (US)
+          - Plug Mini (JP)
+        example: "Plug"
+      power:
+        type: string
+        description: Power state
+        enum:
+          - "on"
+          - "off"
+        example: "on"
+      voltage:
+        type: number
+        description: Current voltage in V
+        example: 120.5
+      weight:
+        type: number
+        description: Current power consumption in W
+        example: 15.3
+      electricCurrent:
+        type: number
+        description: Current in A
+        example: 0.127
+
+  PlugCommand:
+    type: object
+    description: Plug device command
+    required:
+      - commandType
+      - command
+    properties:
+      commandType:
+        type: string
+        description: Command type
+        enum:
+          - command
+        example: "command"
+      command:
+        type: string
+        description: |
+          Command to execute:
+          - turnOn: Turn on the plug
+          - turnOff: Turn off the plug
+          - toggle: Toggle power state
+        enum:
+          - turnOn
+          - turnOff
+          - toggle
+        example: "turnOn"
+      parameter:
+        type: string
+        description: Command parameter (typically "default")
+        enum:
+          - default
+        example: "default"
+
+  PlugWebhookEvent:
+    type: object
+    description: Plug webhook event payload
+    required:
+      - eventType
+      - eventVersion
+      - context
+    properties:
+      eventType:
+        type: string
+        enum:
+          - changeReport
+        example: "changeReport"
+      eventVersion:
+        type: string
+        example: "1"
+      context:
+        type: object
+        required:
+          - deviceType
+          - deviceMac
+          - power
+          - timeOfSample
+        properties:
+          deviceType:
+            type: string
+            enum:
+              - Plug
+              - Plug Mini (US)
+              - Plug Mini (JP)
+          deviceMac:
+            type: string
+            description: Device MAC address
+            example: "84F70353A4D0"
+          power:
+            type: string
+            enum:
+              - "on"
+              - "off"
+          voltage:
+            type: number
+          weight:
+            type: number
+          electricCurrent:
+            type: number
+          timeOfSample:
+            type: integer
+            description: Unix timestamp in milliseconds
+            example: 1658123456789
