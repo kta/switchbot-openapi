@@ -9,6 +9,8 @@ Auto-updating OpenAPI 3.1.0 specification for the [SwitchBot API](https://github
 
 This project maintains a comprehensive OpenAPI specification that automatically syncs with the official SwitchBot API documentation. When the official README is updated, this repository detects changes and uses GitHub Copilot to generate updated OpenAPI schemas.
 
+WebSiteLink: https://switchbot-openapi.vercel.app/
+
 **Status: ✅ Complete** - All 63 device types have been fully defined with comprehensive OpenAPI schemas.
 
 ## Features
