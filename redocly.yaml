@@ -1,3 +1,47 @@
 apis:
   main:
     root: openapi.yaml
+
+# Extend recommended ruleset for OpenAPI best practices
+extends:
+  - recommended
+
+rules:
+  # Operation validation
+  operation-operationId: error
+  operation-summary: error
+  operation-description: warn
+  operation-tag-defined: error
+
+  # Security
+  security-defined: error
+
+  # Schema validation
+  no-invalid-schema-examples: error
+  no-enum-type-mismatch: error
+
+  # Info section
+  info-contact: warn
+  info-license: warn
+
+  # Tags
+  tag-description: off
+
+  # Examples and descriptions
+  operation-4xx-response: warn
+  no-ambiguous-paths: error
+  no-path-trailing-slash: error
+
+  # Path parameters
+  path-parameters-defined: error
+
+  # Response validation
+  no-invalid-media-type-examples: error
+
+  # Component usage - disabled because many device schemas are intentionally
+  # defined for future use, documentation, and automated schema generation
+  no-unused-components: off
+
+  # Relaxed rules for flexibility
+  operation-2xx-response: error
+  boolean-parameter-prefixes: off
