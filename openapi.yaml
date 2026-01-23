@@ -5609,12 +5609,3 @@ components:
           minimum: 0
           maximum: 100
           example: 90
-x-tagGroups:
-  - name: API Endpoints
-    tags:
-      - Devices
-      - Scenes
-      - Webhook
-  - name: Data Models
-    tags:
-      - Schemas
