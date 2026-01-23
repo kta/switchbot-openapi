@@ -31,6 +31,16 @@ tags:
   - name: Webhook
     description: Webhook configuration and management
 
+x-tagGroups:
+  - name: API Endpoints
+    tags:
+      - Devices
+      - Scenes
+      - Webhook
+  - name: Data Models
+    tags:
+      - Schemas
+
 paths:
   /devices:
     $ref: './paths/devices.yaml#/devices'
