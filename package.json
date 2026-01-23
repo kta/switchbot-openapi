@@ -7,8 +7,9 @@
   "scripts": {
     "bundle": "redocly bundle src/main.yaml -o openapi.yaml",
     "validate": "redocly lint openapi.yaml",
-    "build": "npm run bundle && npm run build:docs && npm run copy:spec",
+    "build": "npm run bundle && npm run build:docs && npm run copy:spec && npm run build:mcp",
     "build:docs": "mkdir -p dist && cp docs-template.html dist/index.html",
+    "build:mcp": "mkdir -p dist && node scripts/generate-mcp.js",
     "copy:spec": "mkdir -p dist && cp openapi.yaml dist/openapi.yaml",
     "extract": "node scripts/extract-sections.js",
     "test:copilot": "node scripts/test-copilot.js",

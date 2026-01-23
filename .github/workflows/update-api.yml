@@ -61,7 +61,7 @@ jobs:
 
           echo "✅ Device schema updates completed"
 
-      - name: Bundle and validate OpenAPI spec
+      - name: Bundle, validate OpenAPI spec, and generate MCP server
         run: npm run build
 
       - name: Create Pull Request

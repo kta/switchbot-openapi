@@ -16,6 +16,7 @@ WebSiteLink: https://switchbot-openapi.vercel.app/
 ## Features
 
 - **OpenAPI 3.1.0** compliant specification
+- **MCP Server Support** - Auto-generated Model Context Protocol configuration for AI assistants
 - **AI-powered automation** using GitHub Copilot (GPT-4o)
 - **Automatic synchronization** with upstream SwitchBot API documentation
 - **63 device types** fully supported across 28 schema files
@@ -42,9 +43,57 @@ npm run bundle
 # Validate the specification
 npm run validate
 
-# Build (bundle + validate)
+# Build everything (bundle + validate + generate MCP server)
 npm run build
 ```
+
+### Generate MCP Server Configuration
+
+This project features a **custom-built MCP generator** that creates comprehensive tool definitions for all SwitchBot devices, going far beyond basic endpoint mapping.
+
+```bash
+# Generate MCP server configuration
+npm run build:mcp
+
+# Output: dist/mcp-server.yaml (183+ tools across 51+ device types)
+```
+
+The MCP server configuration is automatically generated as part of the build process and can be used with AI tools like Claude Desktop, Cursor, or other MCP-compatible clients.
+
+**What makes this MCP configuration special:**
+
+Unlike generic OpenAPI-to-MCP converters that only extract basic endpoints, our custom generator:
+
+✅ **Device-Specific Commands** - Each device type gets dedicated tools
+  - `Bot_turnOn`, `Bot_turnOff` - Physical button control
+  - `SmartLock_lock`, `SmartLock_unlock` - Lock control
+  - `ColorBulb_setBrightness`, `ColorBulb_setColor`, `ColorBulb_setColorTemperature` - Light control
+  - `Humidifier_setMode` with auto/low/medium/high options
+  - And 170+ more device-specific commands!
+
+✅ **Detailed Parameter Definitions**
+  - RGB color codes for lights (e.g., `"FF6347"`)
+  - Position values for curtains/blinds (0-100)
+  - Temperature ranges for climate devices
+  - Mode enumerations for each device type
+
+✅ **Complete Coverage**
+  - **183 tools** across **51 device types**
+  - Status retrieval for all devices
+  - Command execution for all controllable devices
+  - Scene management and webhook configuration
+
+**Generated Tool Categories:**
+- Smart Locks (4 variants: Standard, Pro, Ultra, Lite)
+- Lights (Color Bulb, Strip Light, Ceiling Light, Floor Lamp, RGBIC variants)
+- Climate Control (Humidifier, Air Purifier, Radiator Thermostat, Circulator Fan)
+- Curtains & Blinds (Curtain, Blind Tilt, Roller Shade)
+- Robot Vacuums (S1, S1 Plus)
+- Sensors (Meter, Motion, Contact, Presence, Water Leak)
+- And many more...
+
+**Using with Claude Desktop:**
+Add the MCP server configuration to your Claude Desktop settings to give Claude direct control over all your SwitchBot devices with full parameter awareness.
 
 ### Use the Specification
 
@@ -105,6 +154,10 @@ All 63 SwitchBot device types are fully supported:
 │       ├── devices-commands.yaml    # POST /devices/{id}/commands
 │       ├── scenes.yaml              # Scene endpoints
 │       └── webhook.yaml             # Webhook endpoints
+├── dist/
+│   ├── index.html                   # API documentation
+│   ├── openapi.yaml                 # Bundled OpenAPI spec
+│   └── mcp-server.yaml              # MCP server configuration
 ├── scripts/
 │   ├── devices-config.json          # 63 device type mappings
 │   ├── extract-sections.js          # README change detection

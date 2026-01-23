@@ -110,6 +110,34 @@ All defined in `src/components/securitySchemes.yaml`.
 
 This project uses **OpenAPI 3.1.0** (not 3.0.x) for enhanced JSON Schema compatibility. We use @redocly/cli for bundling and validation.
 
+## MCP Server Generation
+
+This project features a **custom-built MCP (Model Context Protocol) generator** that creates comprehensive tool definitions for AI assistants:
+
+### How It Works
+1. Parses the OpenAPI specification from `dist/openapi.yaml`
+2. Extracts all device schemas from `components/schemas`
+3. Generates device-specific tools for each command and status
+4. Creates 183+ tools across 51+ device types with full parameter definitions
+5. Outputs to `dist/mcp-server.yaml` in MCP format
+
+### Generated Tools Include:
+- **Device-specific commands**: `Bot_turnOn`, `SmartLock_lock`, `ColorBulb_setColor`, etc.
+- **Detailed parameters**: RGB codes, position values, mode enumerations
+- **Status retrieval**: Get current state of any device
+- **Scene & webhook management**: Full API coverage
+
+### Running the Generator
+```bash
+# Generate MCP configuration
+npm run build:mcp
+
+# Included in full build
+npm run build
+```
+
+The generator uses fuzzy matching to map device types to schemas, handles spaces and special characters, and extracts parameter constraints (enums, min/max, patterns) automatically.
+
 ## GitHub Copilot Integration
 
 The update scripts use **GitHub Models API** (GitHub Copilot with GPT-4o) to automatically generate device schemas:
