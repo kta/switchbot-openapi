@@ -1,0 +1,4299 @@
+name: SwitchBot MCP Server
+version: 1.1.0
+description: |
+  Official OpenAPI specification for SwitchBot API v1.1
+
+  This specification is automatically synchronized with the official SwitchBot README documentation.
+
+  For the latest official documentation, visit: https://github.com/OpenWonderLabs/SwitchBotAPI
+server:
+  baseUrl: https://api.switch-bot.com/v1.1
+  authentication:
+    type: custom
+    description: "SwitchBot API requires four headers: Authorization (token), sign (HMAC-SHA256), t (timestamp), nonce (UUID)"
+    headers:
+      - name: Authorization
+        description: Access token
+        required: true
+      - name: sign
+        description: HMAC-SHA256 signature
+        required: true
+      - name: t
+        description: Unix timestamp in milliseconds
+        required: true
+      - name: nonce
+        description: Random UUID
+        required: true
+tools:
+  - name: getAIArtFrameStatus
+    description: Get current status of AI Art Frame device
+    category: AI Art Frame
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the AI Art Frame
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of AI Art Frame
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Screen brightness (0-100)
+          example: 75
+        currentArt:
+          type: string
+          description: Currently displayed artwork ID
+  - name: getAIHubStatus
+    description: Get current status of AI Hub device
+    category: AI Hub
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the AI Hub
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of AI Hub
+      schema:
+        temperature:
+          type: number
+          description: Temperature in Celsius
+          example: 24
+        humidity:
+          type: integer
+          description: Relative humidity percentage
+          example: 60
+        lightLevel:
+          type: integer
+          description: Light level (1-bright, 2-dim)
+          enum:
+            - 1
+            - 2
+          example: 1
+        version:
+          type: integer
+          description: Firmware version
+          example: 50
+  - name: getAirPurifierVOCStatus
+    description: Get current status of Air Purifier VOC device
+    category: Air Purifier VOC
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Air Purifier VOC
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Air Purifier VOC
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        fanSpeed:
+          type: integer
+          description: Fan speed level (1-4)
+          example: 2
+        mode:
+          type: string
+          description: Operation mode
+          enum:
+            - auto
+            - manual
+            - sleep
+          example: auto
+  - name: AirPurifierVOC_turnOn
+    description: Turn on the air purifier - Air Purifier VOC
+    category: Air Purifier VOC
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Air Purifier VOC
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: AirPurifierVOC_turnOff
+    description: Turn off the air purifier - Air Purifier VOC
+    category: Air Purifier VOC
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Air Purifier VOC
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: AirPurifierVOC_setFanSpeed
+    description: Set fan speed (1-4) - Air Purifier VOC
+    category: Air Purifier VOC
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Air Purifier VOC
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (auto/manual/sleep), for turnOn/turnOff use "default"
+          example: auto
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setFanSpeed
+        parameter: "{parameter}"
+  - name: AirPurifierVOC_setMode
+    description: Set operation mode - Air Purifier VOC
+    category: Air Purifier VOC
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Air Purifier VOC
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (auto/manual/sleep), for turnOn/turnOff use "default"
+          example: auto
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: getBatteryCirculatorFanStatus
+    description: Get current status of Battery Circulator Fan device
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Battery Circulator Fan
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: &a2
+            - on
+            - off
+          example: on
+        fanSpeed:
+          type: integer
+          description: Fan speed level (1-4)
+          example: 2
+        mode:
+          type: string
+          description: Operation mode
+          enum: &a3
+            - standard
+            - natural
+          example: standard
+        shaking:
+          type: boolean
+          description: Oscillation status
+          example: true
+        shakeRange:
+          type: integer
+          description: Oscillation range (degrees)
+          example: 60
+        battery:
+          type: integer
+          description: Battery level percentage (battery models only)
+          example: 85
+  - name: BatteryCirculatorFan_turnOn
+    description: Turn on the fan - Battery Circulator Fan
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: BatteryCirculatorFan_turnOff
+    description: Turn off the fan - Battery Circulator Fan
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: BatteryCirculatorFan_setFanSpeed
+    description: Set fan speed (1-4) - Battery Circulator Fan
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setFanSpeed
+        parameter: "{parameter}"
+  - name: BatteryCirculatorFan_setMode
+    description: Set operation mode (standard/natural) - Battery Circulator Fan
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: BatteryCirculatorFan_setShaking
+    description: Enable/disable oscillation - Battery Circulator Fan
+    category: Battery Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Battery Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setShaking
+        parameter: "{parameter}"
+  - name: getBlindTiltStatus
+    description: Get current status of Blind Tilt device
+    category: Blind Tilt
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Blind Tilt
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Blind Tilt
+      schema:
+        direction:
+          type: string
+          description: direction
+          enum:
+            - up
+            - down
+        slidePosition:
+          type: integer
+          description: slidePosition
+        battery:
+          type: integer
+          description: battery
+  - name: BlindTilt_turnOn
+    description: Turn on the device - Blind Tilt
+    category: Blind Tilt
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Blind Tilt
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: BlindTilt_turnOff
+    description: Turn off the device - Blind Tilt
+    category: Blind Tilt
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Blind Tilt
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: BlindTilt_setPosition
+    description: Set position - Blind Tilt
+    category: Blind Tilt
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Blind Tilt
+        parameter:
+          type: string
+          description: For setPosition, use "0,ff,<position>" format
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setPosition
+        parameter: "{parameter}"
+  - name: getBotStatus
+    description: Get current status of Bot device
+    category: Bot
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Bot
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Bot
+      schema:
+        power:
+          type: string
+          description: Device power state
+          enum: &a7
+            - on
+            - off
+          example: on
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 100
+  - name: Bot_turnOn
+    description: Trigger the Bot (press) - Bot
+    category: Bot
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Bot
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: Bot_turnOff
+    description: Trigger the Bot (retract) - Bot
+    category: Bot
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Bot
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: getCandleWarmerLampStatus
+    description: Get current status of Candle Warmer Lamp device
+    category: Candle Warmer Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Candle Warmer Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Candle Warmer Lamp
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+  - name: CandleWarmerLamp_turnOn
+    description: Turn on the lamp - Candle Warmer Lamp
+    category: Candle Warmer Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Candle Warmer Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: CandleWarmerLamp_turnOff
+    description: Turn off the lamp - Candle Warmer Lamp
+    category: Candle Warmer Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Candle Warmer Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: CandleWarmerLamp_setBrightness
+    description: Set brightness level - Candle Warmer Lamp
+    category: Candle Warmer Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Candle Warmer Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: 75
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: getCeilingLightProStatus
+    description: Get current status of Ceiling Light Pro device
+    category: Ceiling Light Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light Pro
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Ceiling Light Pro
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: &a1
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: CeilingLightPro_turnOn
+    description: Turn on the ceiling light - Ceiling Light Pro
+    category: Ceiling Light Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light Pro
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: CeilingLightPro_turnOff
+    description: Turn off the ceiling light - Ceiling Light Pro
+    category: Ceiling Light Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light Pro
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: CeilingLightPro_setBrightness
+    description: Set brightness level - Ceiling Light Pro
+    category: Ceiling Light Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light Pro
+        parameter:
+          type: string
+          description: parameter parameter
+          example: 75
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: CeilingLightPro_setColorTemperature
+    description: Set color temperature - Ceiling Light Pro
+    category: Ceiling Light Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light Pro
+        parameter:
+          type: string
+          description: parameter parameter
+          example: 75
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getCeilingLightStatus
+    description: Get current status of Ceiling Light device
+    category: Ceiling Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Ceiling Light
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a1
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: CeilingLight_turnOn
+    description: Turn on the ceiling light - Ceiling Light
+    category: Ceiling Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: CeilingLight_turnOff
+    description: Turn off the ceiling light - Ceiling Light
+    category: Ceiling Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: CeilingLight_setBrightness
+    description: Set brightness level - Ceiling Light
+    category: Ceiling Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: 75
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: CeilingLight_setColorTemperature
+    description: Set color temperature - Ceiling Light
+    category: Ceiling Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Ceiling Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: 75
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getCirculatorFanStatus
+    description: Get current status of Circulator Fan device
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Circulator Fan
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a2
+          example: on
+        fanSpeed:
+          type: integer
+          description: Fan speed level (1-4)
+          example: 2
+        mode:
+          type: string
+          description: Operation mode
+          enum: *a3
+          example: standard
+        shaking:
+          type: boolean
+          description: Oscillation status
+          example: true
+        shakeRange:
+          type: integer
+          description: Oscillation range (degrees)
+          example: 60
+        battery:
+          type: integer
+          description: Battery level percentage (battery models only)
+          example: 85
+  - name: CirculatorFan_turnOn
+    description: Turn on the fan - Circulator Fan
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: CirculatorFan_turnOff
+    description: Turn off the fan - Circulator Fan
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: CirculatorFan_setFanSpeed
+    description: Set fan speed (1-4) - Circulator Fan
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setFanSpeed
+        parameter: "{parameter}"
+  - name: CirculatorFan_setMode
+    description: Set operation mode (standard/natural) - Circulator Fan
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: CirculatorFan_setShaking
+    description: Enable/disable oscillation - Circulator Fan
+    category: Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setShaking
+        parameter: "{parameter}"
+  - name: getColorBulbStatus
+    description: Get current status of Color Bulb device
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Color Bulb
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: ColorBulb_turnOn
+    description: Turn on the bulb - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: ColorBulb_turnOff
+    description: Turn off the bulb - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: ColorBulb_toggle
+    description: Toggle power state - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: ColorBulb_setBrightness
+    description: Set brightness level - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: ColorBulb_setColor
+    description: Set RGB color - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: ColorBulb_setColorTemperature
+    description: Set color temperature - Color Bulb
+    category: Color Bulb
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Color Bulb
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getCurtainStatus
+    description: Get current status of Curtain device
+    category: Curtain
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Curtain
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Curtain
+      schema:
+        slidePosition:
+          type: integer
+          description: Current position (0=closed, 100=open)
+          example: 50
+        moving:
+          type: boolean
+          description: Whether the curtain is currently moving
+          example: false
+        brightness:
+          type: string
+          description: Brightness level detected by light sensor
+          enum:
+            - bright
+            - dim
+          example: bright
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 90
+        calibrate:
+          type: boolean
+          description: Whether the curtain is calibrated
+          example: true
+        group:
+          type: boolean
+          description: Whether the curtain is in a group
+          example: false
+        version:
+          type: integer
+          description: Firmware version
+          example: 4
+  - name: Curtain_turnOn
+    description: Open curtain - Curtain
+    category: Curtain
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Curtain
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: Curtain_turnOff
+    description: Close curtain - Curtain
+    category: Curtain
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Curtain
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: Curtain_setPosition
+    description: Set to specific position - Curtain
+    category: Curtain
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Curtain
+        parameter:
+          type: string
+          description: |
+            Command parameter:
+            - For turnOn/turnOff: "default"
+            - For setPosition: "0,ff,<position>" where position is 0-100
+              Example: "0,ff,50" sets position to 50%
+          example: 0,ff,50
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setPosition
+        parameter: "{parameter}"
+  - name: getDevices
+    description: Get list of all devices associated with your SwitchBot account
+    category: Device Management
+    input:
+      type: object
+      properties: {}
+      required: []
+    endpoint:
+      method: GET
+      path: /devices
+    output:
+      description: Returns list of physical devices and infrared remote devices
+      schema:
+        deviceList: array
+        infraredRemoteList: array
+  - name: getEvaporativeHumidifier(Auto)Status
+    description: Get current status of Evaporative Humidifier (Auto) device
+    category: Evaporative Humidifier (Auto)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier (Auto)
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Evaporative Humidifier (Auto)
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: &a4
+            - on
+            - off
+          example: on
+        humidity:
+          type: integer
+          description: Current humidity percentage (0-100)
+          example: 52
+        temperature:
+          type: number
+          description: Current temperature in Celsius
+          example: 26.2
+        nebulizationEfficiency:
+          type: integer
+          description: Nebulization efficiency percentage (0-100)
+          example: 100
+        auto:
+          type: boolean
+          description: Auto mode enabled
+          example: true
+        childLock:
+          type: boolean
+          description: Child lock enabled
+          example: false
+        sound:
+          type: boolean
+          description: Sound/buzzer enabled
+          example: true
+        lackWater:
+          type: boolean
+          description: Water tank is empty
+          example: false
+  - name: EvaporativeHumidifier(Auto)_turnOn
+    description: Turn on the humidifier - Evaporative Humidifier (Auto)
+    category: Evaporative Humidifier (Auto)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier (Auto)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: EvaporativeHumidifier(Auto)_turnOff
+    description: Turn off the humidifier - Evaporative Humidifier (Auto)
+    category: Evaporative Humidifier (Auto)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier (Auto)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: EvaporativeHumidifier(Auto)_setMode
+    description: Set operation mode (auto, low, medium, high) - Evaporative Humidifier (Auto)
+    category: Evaporative Humidifier (Auto)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier (Auto)
+        parameter:
+          type: string
+          description: |
+            Command parameter:
+            - For turnOn/turnOff: "default"
+            - For setMode: "auto", "low", "medium", or "high"
+          example: auto
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: getEvaporativeHumidifierStatus
+    description: Get current status of Evaporative Humidifier device
+    category: Evaporative Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Evaporative Humidifier
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        humidity:
+          type: integer
+          description: Current relative humidity percentage
+          example: 55
+        temperature:
+          type: number
+          description: Current temperature in Celsius
+          example: 22.5
+        nebulizationEfficiency:
+          type: integer
+          description: Nebulization efficiency percentage
+          example: 75
+        auto:
+          type: boolean
+          description: Auto mode status
+          example: true
+        childLock:
+          type: boolean
+          description: Child lock status
+          example: false
+        sound:
+          type: boolean
+          description: Sound enabled/disabled
+          example: true
+        lackWater:
+          type: boolean
+          description: Water shortage indicator
+          example: false
+  - name: EvaporativeHumidifier_turnOn
+    description: Turn on the humidifier - Evaporative Humidifier
+    category: Evaporative Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: EvaporativeHumidifier_turnOff
+    description: Turn off the humidifier - Evaporative Humidifier
+    category: Evaporative Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: EvaporativeHumidifier_setMode
+    description: Set operation mode - Evaporative Humidifier
+    category: Evaporative Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Evaporative Humidifier
+        parameter:
+          type: string
+          description: For setMode (auto/101/102/103), for turnOn/turnOff use "default"
+          example: auto
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: getFloorLampStatus
+    description: Get current status of Floor Lamp device
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Floor Lamp
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: FloorLamp_turnOn
+    description: Turn on the floor lamp - Floor Lamp
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: FloorLamp_turnOff
+    description: Turn off the floor lamp - Floor Lamp
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: FloorLamp_setBrightness
+    description: Set brightness level - Floor Lamp
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: FloorLamp_setColor
+    description: Set RGB color - Floor Lamp
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: FloorLamp_setColorTemperature
+    description: Set color temperature - Floor Lamp
+    category: Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getGarageDoorOpenerStatus
+    description: Get current status of Garage Door Opener device
+    category: Garage Door Opener
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Garage Door Opener
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Garage Door Opener
+      schema:
+        doorState:
+          type: string
+          description: Current door state
+          enum:
+            - closed
+            - opened
+            - closing
+            - opening
+          example: closed
+        calibrate:
+          type: boolean
+          description: Whether calibration is needed
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 95
+  - name: GarageDoorOpener_open
+    description: Open the garage door - Garage Door Opener
+    category: Garage Door Opener
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Garage Door Opener
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: open
+  - name: GarageDoorOpener_close
+    description: Close the garage door - Garage Door Opener
+    category: Garage Door Opener
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Garage Door Opener
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: close
+  - name: getHomeClimatePanelStatus
+    description: Get current status of Home Climate Panel device
+    category: Home Climate Panel
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Home Climate Panel
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Home Climate Panel
+      schema:
+        temperature:
+          type: number
+          description: Current temperature in Celsius
+          example: 22
+        humidity:
+          type: integer
+          description: Relative humidity percentage
+          example: 50
+        mode:
+          type: string
+          description: Operation mode
+          example: auto
+        power:
+          type: string
+          description: power
+          enum:
+            - on
+            - off
+  - name: getHub3Status
+    description: Get current status of Hub 3 device
+    category: Hub 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Hub 3
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Hub 3
+      schema:
+        temperature:
+          type: number
+          description: Temperature in Celsius
+          example: 23.5
+        humidity:
+          type: integer
+          description: Relative humidity percentage
+          example: 55
+        lightLevel:
+          type: integer
+          description: Light level (1-bright, 2-dim)
+          enum:
+            - 1
+            - 2
+          example: 1
+        version:
+          type: integer
+          description: Firmware version
+          example: 42
+  - name: getHubStatus
+    description: Get current status of Hub device
+    category: Hub
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Hub
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Hub
+      schema:
+        hubDeviceId:
+          type: string
+          description: Hub device ID (same as deviceId for Hub devices)
+          example: FA7310762361
+        temperature:
+          type: number
+          description: Temperature in Celsius (Hub 2 and Hub Plus only)
+          example: 22.5
+        humidity:
+          type: integer
+          description: Humidity percentage (Hub 2 and Hub Plus only)
+          example: 50
+        lightLevel:
+          type: integer
+          description: Light level (Hub 2 only, 1-20)
+          example: 10
+        version:
+          type: integer
+          description: Firmware version
+          example: 3
+  - name: getHumidifierStatus
+    description: Get current status of Humidifier device
+    category: Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Humidifier
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a4
+          example: on
+        humidity:
+          type: integer
+          description: Current humidity percentage (0-100)
+          example: 52
+        temperature:
+          type: number
+          description: Current temperature in Celsius
+          example: 26.2
+        nebulizationEfficiency:
+          type: integer
+          description: Nebulization efficiency percentage (0-100)
+          example: 100
+        auto:
+          type: boolean
+          description: Auto mode enabled
+          example: true
+        childLock:
+          type: boolean
+          description: Child lock enabled
+          example: false
+        sound:
+          type: boolean
+          description: Sound/buzzer enabled
+          example: true
+        lackWater:
+          type: boolean
+          description: Water tank is empty
+          example: false
+  - name: Humidifier_turnOn
+    description: Turn on the humidifier - Humidifier
+    category: Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: Humidifier_turnOff
+    description: Turn off the humidifier - Humidifier
+    category: Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Humidifier
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: Humidifier_setMode
+    description: Set operation mode (auto, low, medium, high) - Humidifier
+    category: Humidifier
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Humidifier
+        parameter:
+          type: string
+          description: |
+            Command parameter:
+            - For turnOn/turnOff: "default"
+            - For setMode: "auto", "low", "medium", or "high"
+          example: auto
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: getKeypadTouchStatus
+    description: Get current status of Keypad Touch device
+    category: Keypad Touch
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Keypad Touch
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Keypad Touch
+      schema:
+        battery:
+          type: integer
+          description: Battery level percentage
+  - name: getKeypadVisionProStatus
+    description: Get current status of Keypad Vision Pro device
+    category: Keypad Vision Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Keypad Vision Pro
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Keypad Vision Pro
+      schema:
+        battery:
+          type: integer
+          description: Battery level percentage
+  - name: getKeypadVisionStatus
+    description: Get current status of Keypad Vision device
+    category: Keypad Vision
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Keypad Vision
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Keypad Vision
+      schema:
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 90
+  - name: getKeypadStatus
+    description: Get current status of Keypad device
+    category: Keypad
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Keypad
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Keypad
+      schema:
+        battery:
+          type: integer
+          description: Battery level percentage
+  - name: getMeterStatus
+    description: Get current status of Meter device
+    category: Meter
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Meter
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Meter
+      schema:
+        temperature:
+          type: number
+          description: Temperature in Celsius
+          example: 23.5
+        humidity:
+          type: integer
+          description: Humidity percentage (0-100)
+          example: 45
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 95
+        version:
+          type: integer
+          description: Firmware version
+          example: 2
+        CO2:
+          type: integer
+          description: CO2 level in ppm (Meter Pro CO2 only)
+          example: 450
+  - name: getOutdoorMeterStatus
+    description: Get current status of Outdoor Meter device
+    category: Outdoor Meter
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Outdoor Meter
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Outdoor Meter
+      schema:
+        temperature:
+          type: number
+          description: Temperature in Celsius
+          example: 25.5
+        humidity:
+          type: integer
+          description: Relative humidity percentage
+          example: 65
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 80
+  - name: getPlugMini(EU)Status
+    description: Get current status of Plug Mini (EU) device
+    category: Plug Mini (EU)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (EU)
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Plug Mini (EU)
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: &a5
+            - on
+            - off
+          example: on
+        voltage:
+          type: number
+          description: Current voltage in V
+          example: 120.5
+        weight:
+          type: number
+          description: Current power consumption in W
+          example: 15.3
+        electricCurrent:
+          type: number
+          description: Current in A
+          example: 0.127
+  - name: PlugMini(EU)_turnOn
+    description: Turn on the plug - Plug Mini (EU)
+    category: Plug Mini (EU)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (EU)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: PlugMini(EU)_turnOff
+    description: Turn off the plug - Plug Mini (EU)
+    category: Plug Mini (EU)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (EU)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: PlugMini(EU)_toggle
+    description: Toggle power state - Plug Mini (EU)
+    category: Plug Mini (EU)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (EU)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getPlugMini(JP)Status
+    description: Get current status of Plug Mini (JP) device
+    category: Plug Mini (JP)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (JP)
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Plug Mini (JP)
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a5
+          example: on
+        voltage:
+          type: number
+          description: Current voltage in V
+          example: 120.5
+        weight:
+          type: number
+          description: Current power consumption in W
+          example: 15.3
+        electricCurrent:
+          type: number
+          description: Current in A
+          example: 0.127
+  - name: PlugMini(JP)_turnOn
+    description: Turn on the plug - Plug Mini (JP)
+    category: Plug Mini (JP)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (JP)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: PlugMini(JP)_turnOff
+    description: Turn off the plug - Plug Mini (JP)
+    category: Plug Mini (JP)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (JP)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: PlugMini(JP)_toggle
+    description: Toggle power state - Plug Mini (JP)
+    category: Plug Mini (JP)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (JP)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getPlugMini(US)Status
+    description: Get current status of Plug Mini (US) device
+    category: Plug Mini (US)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (US)
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Plug Mini (US)
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a5
+          example: on
+        voltage:
+          type: number
+          description: Current voltage in V
+          example: 120.5
+        weight:
+          type: number
+          description: Current power consumption in W
+          example: 15.3
+        electricCurrent:
+          type: number
+          description: Current in A
+          example: 0.127
+  - name: PlugMini(US)_turnOn
+    description: Turn on the plug - Plug Mini (US)
+    category: Plug Mini (US)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (US)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: PlugMini(US)_turnOff
+    description: Turn off the plug - Plug Mini (US)
+    category: Plug Mini (US)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (US)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: PlugMini(US)_toggle
+    description: Toggle power state - Plug Mini (US)
+    category: Plug Mini (US)
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug Mini (US)
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getPlugStatus
+    description: Get current status of Plug device
+    category: Plug
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Plug
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a5
+          example: on
+        voltage:
+          type: number
+          description: Current voltage in V
+          example: 120.5
+        weight:
+          type: number
+          description: Current power consumption in W
+          example: 15.3
+        electricCurrent:
+          type: number
+          description: Current in A
+          example: 0.127
+  - name: Plug_turnOn
+    description: Turn on the plug - Plug
+    category: Plug
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: Plug_turnOff
+    description: Turn off the plug - Plug
+    category: Plug
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: Plug_toggle
+    description: Toggle power state - Plug
+    category: Plug
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Plug
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getPresenceSensorStatus
+    description: Get current status of Presence Sensor device
+    category: Presence Sensor
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Presence Sensor
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Presence Sensor
+      schema:
+        presenceDetected:
+          type: boolean
+          description: Whether presence is currently detected
+          example: true
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 90
+  - name: getRGBICNeonRopeLightStatus
+    description: Get current status of RGBIC Neon Rope Light device
+    category: RGBIC Neon Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of RGBIC Neon Rope Light
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+  - name: RGBICNeonRopeLight_turnOn
+    description: Turn on the neon light - RGBIC Neon Rope Light
+    category: RGBIC Neon Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RGBICNeonRopeLight_turnOff
+    description: Turn off the neon light - RGBIC Neon Rope Light
+    category: RGBIC Neon Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RGBICNeonRopeLight_setBrightness
+    description: Set brightness level - RGBIC Neon Rope Light
+    category: RGBIC Neon Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Rope Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: RGBICNeonRopeLight_setColor
+    description: Set RGB color - RGBIC Neon Rope Light
+    category: RGBIC Neon Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Rope Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: getRGBICNeonWireRopeLightStatus
+    description: Get current status of RGBIC Neon Wire Rope Light device
+    category: RGBIC Neon Wire Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Wire Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of RGBIC Neon Wire Rope Light
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+  - name: RGBICNeonWireRopeLight_turnOn
+    description: Turn on the neon light - RGBIC Neon Wire Rope Light
+    category: RGBIC Neon Wire Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Wire Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RGBICNeonWireRopeLight_turnOff
+    description: Turn off the neon light - RGBIC Neon Wire Rope Light
+    category: RGBIC Neon Wire Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Wire Rope Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RGBICNeonWireRopeLight_setBrightness
+    description: Set brightness level - RGBIC Neon Wire Rope Light
+    category: RGBIC Neon Wire Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Wire Rope Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: RGBICNeonWireRopeLight_setColor
+    description: Set RGB color - RGBIC Neon Wire Rope Light
+    category: RGBIC Neon Wire Rope Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBIC Neon Wire Rope Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: getRGBICWWFloorLampStatus
+    description: Get current status of RGBICWW Floor Lamp device
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of RGBICWW Floor Lamp
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: RGBICWWFloorLamp_turnOn
+    description: Turn on the floor lamp - RGBICWW Floor Lamp
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RGBICWWFloorLamp_turnOff
+    description: Turn off the floor lamp - RGBICWW Floor Lamp
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RGBICWWFloorLamp_setBrightness
+    description: Set brightness level - RGBICWW Floor Lamp
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: RGBICWWFloorLamp_setColor
+    description: Set RGB color - RGBICWW Floor Lamp
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: RGBICWWFloorLamp_setColorTemperature
+    description: Set color temperature - RGBICWW Floor Lamp
+    category: RGBICWW Floor Lamp
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Floor Lamp
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getRGBICWWStripLightStatus
+    description: Get current status of RGBICWW Strip Light device
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of RGBICWW Strip Light
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: RGBICWWStripLight_turnOn
+    description: Turn on the strip light - RGBICWW Strip Light
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RGBICWWStripLight_turnOff
+    description: Turn off the strip light - RGBICWW Strip Light
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RGBICWWStripLight_setBrightness
+    description: Set brightness level - RGBICWW Strip Light
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: RGBICWWStripLight_setColor
+    description: Set RGB color - RGBICWW Strip Light
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: RGBICWWStripLight_setColorTemperature
+    description: Set color temperature - RGBICWW Strip Light
+    category: RGBICWW Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the RGBICWW Strip Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getRelaySwitch1Status
+    description: Get current status of Relay Switch 1 device
+    category: Relay Switch 1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Relay Switch 1
+      schema:
+        power:
+          type: string
+          description: power
+          enum: &a6
+            - on
+            - off
+        voltage:
+          type: number
+          description: Current voltage (PM models only)
+        weight:
+          type: number
+          description: Power consumption in W (PM models only)
+        electricCurrent:
+          type: number
+          description: Current in A (PM models only)
+  - name: RelaySwitch1_turnOn
+    description: Turn on the device - Relay Switch 1
+    category: Relay Switch 1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RelaySwitch1_turnOff
+    description: Turn off the device - Relay Switch 1
+    category: Relay Switch 1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RelaySwitch1_toggle
+    description: Toggle device power state - Relay Switch 1
+    category: Relay Switch 1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getRelaySwitch1PMStatus
+    description: Get current status of Relay Switch 1PM device
+    category: Relay Switch 1PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1PM
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Relay Switch 1PM
+      schema:
+        power:
+          type: string
+          description: power
+          enum: *a6
+        voltage:
+          type: number
+          description: Current voltage (PM models only)
+        weight:
+          type: number
+          description: Power consumption in W (PM models only)
+        electricCurrent:
+          type: number
+          description: Current in A (PM models only)
+  - name: RelaySwitch1PM_turnOn
+    description: Turn on the device - Relay Switch 1PM
+    category: Relay Switch 1PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RelaySwitch1PM_turnOff
+    description: Turn off the device - Relay Switch 1PM
+    category: Relay Switch 1PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RelaySwitch1PM_toggle
+    description: Toggle device power state - Relay Switch 1PM
+    category: Relay Switch 1PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 1PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getRelaySwitch2PMStatus
+    description: Get current status of Relay Switch 2PM device
+    category: Relay Switch 2PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 2PM
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Relay Switch 2PM
+      schema:
+        power:
+          type: string
+          description: power
+          enum: *a6
+        voltage:
+          type: number
+          description: Current voltage (PM models only)
+        weight:
+          type: number
+          description: Power consumption in W (PM models only)
+        electricCurrent:
+          type: number
+          description: Current in A (PM models only)
+  - name: RelaySwitch2PM_turnOn
+    description: Turn on the device - Relay Switch 2PM
+    category: Relay Switch 2PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 2PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RelaySwitch2PM_turnOff
+    description: Turn off the device - Relay Switch 2PM
+    category: Relay Switch 2PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 2PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RelaySwitch2PM_toggle
+    description: Toggle device power state - Relay Switch 2PM
+    category: Relay Switch 2PM
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Relay Switch 2PM
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: toggle
+  - name: getRobotVacuumCleanerS1PlusStatus
+    description: Get current status of Robot Vacuum Cleaner S1 Plus device
+    category: Robot Vacuum Cleaner S1 Plus
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1 Plus
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Robot Vacuum Cleaner S1 Plus
+      schema:
+        power:
+          type: string
+          description: Device power state
+          enum: *a7
+          example: on
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 100
+  - name: RobotVacuumCleanerS1Plus_turnOn
+    description: Trigger the Bot (press) - Robot Vacuum Cleaner S1 Plus
+    category: Robot Vacuum Cleaner S1 Plus
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1 Plus
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RobotVacuumCleanerS1Plus_turnOff
+    description: Trigger the Bot (retract) - Robot Vacuum Cleaner S1 Plus
+    category: Robot Vacuum Cleaner S1 Plus
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1 Plus
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: getRobotVacuumCleanerS1Status
+    description: Get current status of Robot Vacuum Cleaner S1 device
+    category: Robot Vacuum Cleaner S1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Robot Vacuum Cleaner S1
+      schema:
+        power:
+          type: string
+          description: Device power state
+          enum: *a7
+          example: on
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 100
+  - name: RobotVacuumCleanerS1_turnOn
+    description: Trigger the Bot (press) - Robot Vacuum Cleaner S1
+    category: Robot Vacuum Cleaner S1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RobotVacuumCleanerS1_turnOff
+    description: Trigger the Bot (retract) - Robot Vacuum Cleaner S1
+    category: Robot Vacuum Cleaner S1
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Robot Vacuum Cleaner S1
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: getRollerShadeStatus
+    description: Get current status of Roller Shade device
+    category: Roller Shade
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Roller Shade
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Roller Shade
+      schema:
+        slidePosition:
+          type: integer
+          description: slidePosition
+        moving:
+          type: boolean
+          description: moving
+        battery:
+          type: integer
+          description: battery
+  - name: RollerShade_turnOn
+    description: Turn on the device - Roller Shade
+    category: Roller Shade
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Roller Shade
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: RollerShade_turnOff
+    description: Turn off the device - Roller Shade
+    category: Roller Shade
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Roller Shade
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: RollerShade_setPosition
+    description: Set position - Roller Shade
+    category: Roller Shade
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Roller Shade
+        parameter:
+          type: string
+          description: For setPosition, use "0,ff,<position>" format
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setPosition
+        parameter: "{parameter}"
+  - name: getScenes
+    description: Get list of all manual scenes
+    category: Scene Management
+    input:
+      type: object
+      properties: {}
+      required: []
+    endpoint:
+      method: GET
+      path: /scenes
+    output:
+      description: Returns list of manual scenes
+  - name: executeScene
+    description: Execute a manual scene by its sceneId
+    category: Scene Management
+    input:
+      type: object
+      properties:
+        sceneId:
+          type: string
+          description: Unique scene identifier
+      required:
+        - sceneId
+    endpoint:
+      method: POST
+      path: /scenes/{sceneId}/execute
+  - name: getSmartLockLiteStatus
+    description: Get current status of Smart Lock Lite device
+    category: Smart Lock Lite
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Lite
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Smart Lock Lite
+      schema:
+        lockState:
+          type: string
+          description: Current lock state
+          enum: &a8
+            - locked
+            - unlocked
+            - jammed
+          example: locked
+        doorState:
+          type: string
+          description: Current door state
+          enum: &a9
+            - closed
+            - opened
+            - unknown
+          example: closed
+        calibrate:
+          type: boolean
+          description: Whether the lock is calibrated
+          example: true
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 85
+  - name: SmartLockLite_lock
+    description: Lock the door - Smart Lock Lite
+    category: Smart Lock Lite
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Lite
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: lock
+  - name: SmartLockLite_unlock
+    description: Unlock the door - Smart Lock Lite
+    category: Smart Lock Lite
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Lite
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: unlock
+  - name: getSmartLockProStatus
+    description: Get current status of Smart Lock Pro device
+    category: Smart Lock Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Pro
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Smart Lock Pro
+      schema:
+        lockState:
+          type: string
+          description: Current lock state
+          enum: *a8
+          example: locked
+        doorState:
+          type: string
+          description: Current door state
+          enum: *a9
+          example: closed
+        calibrate:
+          type: boolean
+          description: Whether the lock is calibrated
+          example: true
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 85
+  - name: SmartLockPro_lock
+    description: Lock the door - Smart Lock Pro
+    category: Smart Lock Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Pro
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: lock
+  - name: SmartLockPro_unlock
+    description: Unlock the door - Smart Lock Pro
+    category: Smart Lock Pro
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Pro
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: unlock
+  - name: getSmartLockUltraStatus
+    description: Get current status of Smart Lock Ultra device
+    category: Smart Lock Ultra
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Ultra
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Smart Lock Ultra
+      schema:
+        lockState:
+          type: string
+          description: Current lock state
+          enum: *a8
+          example: locked
+        doorState:
+          type: string
+          description: Current door state
+          enum: *a9
+          example: closed
+        calibrate:
+          type: boolean
+          description: Whether the lock is calibrated
+          example: true
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 85
+  - name: SmartLockUltra_lock
+    description: Lock the door - Smart Lock Ultra
+    category: Smart Lock Ultra
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Ultra
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: lock
+  - name: SmartLockUltra_unlock
+    description: Unlock the door - Smart Lock Ultra
+    category: Smart Lock Ultra
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock Ultra
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: unlock
+  - name: getSmartLockStatus
+    description: Get current status of Smart Lock device
+    category: Smart Lock
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Smart Lock
+      schema:
+        lockState:
+          type: string
+          description: Current lock state
+          enum: *a8
+          example: locked
+        doorState:
+          type: string
+          description: Current door state
+          enum: *a9
+          example: closed
+        calibrate:
+          type: boolean
+          description: Whether the lock is calibrated
+          example: true
+        battery:
+          type: integer
+          description: Battery level percentage (0-100)
+          example: 85
+  - name: SmartLock_lock
+    description: Lock the door - Smart Lock
+    category: Smart Lock
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: lock
+  - name: SmartLock_unlock
+    description: Unlock the door - Smart Lock
+    category: Smart Lock
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Lock
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: unlock
+  - name: getSmartRadiatorThermostatStatus
+    description: Get current status of Smart Radiator Thermostat device
+    category: Smart Radiator Thermostat
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Radiator Thermostat
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Smart Radiator Thermostat
+      schema:
+        temperature:
+          type: number
+          description: Current temperature in Celsius
+          example: 21.5
+        targetTemperature:
+          type: number
+          description: Target temperature in Celsius
+          example: 22
+        mode:
+          type: string
+          description: Operation mode
+          enum:
+            - heat
+            - off
+            - auto
+          example: heat
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 70
+  - name: SmartRadiatorThermostat_setMode
+    description: Set operation mode - Smart Radiator Thermostat
+    category: Smart Radiator Thermostat
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Radiator Thermostat
+        parameter:
+          type: string
+          description: For setMode (heat/off/auto), for setTemperature (temperature value)
+          example: "22"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: SmartRadiatorThermostat_setTemperature
+    description: Set target temperature - Smart Radiator Thermostat
+    category: Smart Radiator Thermostat
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Smart Radiator Thermostat
+        parameter:
+          type: string
+          description: For setMode (heat/off/auto), for setTemperature (temperature value)
+          example: "22"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setTemperature
+        parameter: "{parameter}"
+  - name: getStandingCirculatorFanStatus
+    description: Get current status of Standing Circulator Fan device
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Standing Circulator Fan
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum: *a2
+          example: on
+        fanSpeed:
+          type: integer
+          description: Fan speed level (1-4)
+          example: 2
+        mode:
+          type: string
+          description: Operation mode
+          enum: *a3
+          example: standard
+        shaking:
+          type: boolean
+          description: Oscillation status
+          example: true
+        shakeRange:
+          type: integer
+          description: Oscillation range (degrees)
+          example: 60
+        battery:
+          type: integer
+          description: Battery level percentage (battery models only)
+          example: 85
+  - name: StandingCirculatorFan_turnOn
+    description: Turn on the fan - Standing Circulator Fan
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: StandingCirculatorFan_turnOff
+    description: Turn off the fan - Standing Circulator Fan
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: StandingCirculatorFan_setFanSpeed
+    description: Set fan speed (1-4) - Standing Circulator Fan
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setFanSpeed
+        parameter: "{parameter}"
+  - name: StandingCirculatorFan_setMode
+    description: Set operation mode (standard/natural) - Standing Circulator Fan
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setMode
+        parameter: "{parameter}"
+  - name: StandingCirculatorFan_setShaking
+    description: Enable/disable oscillation - Standing Circulator Fan
+    category: Standing Circulator Fan
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Standing Circulator Fan
+        parameter:
+          type: string
+          description: For setFanSpeed (1-4), for setMode (standard/natural), for setShaking (on/off), for turnOn/turnOff use "default"
+          example: "2"
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setShaking
+        parameter: "{parameter}"
+  - name: getStripLight3Status
+    description: Get current status of Strip Light 3 device
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Strip Light 3
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+        colorTemperature:
+          type: integer
+          description: Color temperature in Kelvin (2700-6500)
+          example: 4000
+  - name: StripLight3_turnOn
+    description: Turn on the strip light - Strip Light 3
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: StripLight3_turnOff
+    description: Turn off the strip light - Strip Light 3
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: StripLight3_setBrightness
+    description: Set brightness level - Strip Light 3
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: StripLight3_setColor
+    description: Set RGB color - Strip Light 3
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: StripLight3_setColorTemperature
+    description: Set color temperature - Strip Light 3
+    category: Strip Light 3
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light 3
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColorTemperature
+        parameter: "{parameter}"
+  - name: getStripLightStatus
+    description: Get current status of Strip Light device
+    category: Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Strip Light
+      schema:
+        power:
+          type: string
+          description: Power state
+          enum:
+            - on
+            - off
+          example: on
+        brightness:
+          type: integer
+          description: Brightness level (1-100)
+          example: 75
+        color:
+          type: string
+          description: RGB color in hex format
+          example: FF6347
+  - name: StripLight_turnOn
+    description: Turn on the strip light - Strip Light
+    category: Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOn
+  - name: StripLight_turnOff
+    description: Turn off the strip light - Strip Light
+    category: Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light
+      required:
+        - deviceId
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: turnOff
+  - name: StripLight_setBrightness
+    description: Set brightness level - Strip Light
+    category: Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setBrightness
+        parameter: "{parameter}"
+  - name: StripLight_setColor
+    description: Set RGB color - Strip Light
+    category: Strip Light
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Strip Light
+        parameter:
+          type: string
+          description: parameter parameter
+          example: FF6347
+      required:
+        - deviceId
+        - parameter
+    endpoint:
+      method: POST
+      path: /devices/{deviceId}/commands
+      body:
+        commandType: command
+        command: setColor
+        parameter: "{parameter}"
+  - name: getVirtualIRRemoteStatus
+    description: Get current status of Virtual IR Remote device
+    category: Virtual IR Remote
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Virtual IR Remote
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Virtual IR Remote
+      schema:
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 90
+  - name: getWaterLeakDetectorStatus
+    description: Get current status of Water Leak Detector device
+    category: Water Leak Detector
+    input:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Device ID of the Water Leak Detector
+      required:
+        - deviceId
+    endpoint:
+      method: GET
+      path: /devices/{deviceId}/status
+    output:
+      description: Current status of Water Leak Detector
+      schema:
+        leakDetected:
+          type: boolean
+          description: Whether water leak is currently detected
+          example: false
+        battery:
+          type: integer
+          description: Battery level percentage
+          example: 85
+  - name: setupWebhook
+    description: Configure webhook URL to receive device status notifications
+    category: Webhook Management
+    input:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Webhook endpoint URL (must be HTTPS)
+        deviceList:
+          type: string
+          description: Comma-separated device IDs or "ALL"
+      required:
+        - url
+    endpoint:
+      method: POST
+      path: /webhook/setupWebhook
+  - name: queryWebhook
+    description: Query current webhook configuration
+    category: Webhook Management
+    input:
+      type: object
+      properties: {}
+      required: []
+    endpoint:
+      method: POST
+      path: /webhook/queryWebhook
+  - name: updateWebhook
+    description: Update existing webhook configuration
+    category: Webhook Management
+    input:
+      type: object
+      properties:
+        url:
+          type: string
+          description: New webhook URL
+        deviceList:
+          type: string
+          description: Updated device list
+      required: []
+    endpoint:
+      method: POST
+      path: /webhook/updateWebhook
+  - name: deleteWebhook
+    description: Delete configured webhook
+    category: Webhook Management
+    input:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Webhook URL to delete
+      required:
+        - url
+    endpoint:
+      method: POST
+      path: /webhook/deleteWebhook
+metadata:
+  generatedAt: 2026-01-25T08:04:47.233Z
+  generatedBy: SwitchBot Custom MCP Generator v2.0
+  deviceCount: 51
+  totalTools: 183
+  categories:
+    - AI Art Frame
+    - AI Hub
+    - Air Purifier VOC
+    - Battery Circulator Fan
+    - Blind Tilt
+    - Bot
+    - Candle Warmer Lamp
+    - Ceiling Light
+    - Ceiling Light Pro
+    - Circulator Fan
+    - Color Bulb
+    - Curtain
+    - Device Management
+    - Evaporative Humidifier
+    - Evaporative Humidifier (Auto)
+    - Floor Lamp
+    - Garage Door Opener
+    - Home Climate Panel
+    - Hub
+    - Hub 3
+    - Humidifier
+    - Keypad
+    - Keypad Touch
+    - Keypad Vision
+    - Keypad Vision Pro
+    - Meter
+    - Outdoor Meter
+    - Plug
+    - Plug Mini (EU)
+    - Plug Mini (JP)
+    - Plug Mini (US)
+    - Presence Sensor
+    - RGBIC Neon Rope Light
+    - RGBIC Neon Wire Rope Light
+    - RGBICWW Floor Lamp
+    - RGBICWW Strip Light
+    - Relay Switch 1
+    - Relay Switch 1PM
+    - Relay Switch 2PM
+    - Robot Vacuum Cleaner S1
+    - Robot Vacuum Cleaner S1 Plus
+    - Roller Shade
+    - Scene Management
+    - Smart Lock
+    - Smart Lock Lite
+    - Smart Lock Pro
+    - Smart Lock Ultra
+    - Smart Radiator Thermostat
+    - Standing Circulator Fan
+    - Strip Light
+    - Strip Light 3
+    - Virtual IR Remote
+    - Water Leak Detector
+    - Webhook Management

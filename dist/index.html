@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SwitchBot API Documentation - Official OpenAPI specification for SwitchBot API v1.1">
+  <title>SwitchBot API Documentation</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="redoc-container"></div>
+  <script src="https://cdn.redocly.com/redoc/latest/bundles/redoc.standalone.js"></script>
+  <script>
+    Redoc.init(
+      './openapi.yaml',
+      {
+        scrollYOffset: 0,
+        hideDownloadButton: false,
+        disableSearch: false,
+        expandResponses: '200,201',
+        jsonSampleExpandLevel: 2,
+        sortPropsAlphabetically: true,
+        hideSchemaPattern: [],
+        expandSingleSchemaField: true,
+        showExtensions: true,
+        nativeScrollbars: false,
+        pathInMiddlePanel: false,
+        requiredPropsFirst: true,
+        noAutoAuth: false,
+        hideSingleRequestSampleTab: false,
+        menuToggle: true,
+        schemaDefinitionsTagName: 'Schemas',
+        schemasExpansionLevel: 'all',
+        theme: {
+          colors: {
+            primary: {
+              main: '#32329f'
+            }
+          },
+          typography: {
+            fontSize: '14px',
+            fontFamily: '"Roboto", sans-serif',
+            headings: {
+              fontFamily: '"Montserrat", sans-serif'
+            }
+          },
+          sidebar: {
+            width: '260px'
+          }
+        }
+      },
+      document.getElementById('redoc-container')
+    );
+  </script>
+</body>
+</html>
