@@ -2,8 +2,6 @@
 node_modules/
 yarn.lock
 
-# Build outputs
-dist/
 
 # Generated files from automation
 scripts/changed-sections.json
